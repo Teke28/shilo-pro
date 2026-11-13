@@ -2,7 +2,7 @@
 .hero-image{background-image:url('/images/photo1.jpg')}
 .film-image{background-image:url('/images/photo4.jpg')}
 .tiktok-profile{background:#181816}
-.tiktok-profile-card{display:flex;align-items:center;gap:34px;max-width:850px;margin:0 auto;padding:30px;border:1px solid #39372f;background:#131311}
+.tiktok-profile-card{display:flex;align-items:center;gap:26px;max-width:850px;margin:0 auto;padding:24px;border:1px solid #39372f;background:#131311}
 .tiktok-avatar-link{position:relative;flex:0 0 164px;width:164px;height:164px;border-radius:50%;overflow:hidden;border:1px solid #766344;transition:transform .25s,border-color .25s}
 .tiktok-avatar-link:hover{transform:scale(1.035);border-color:var(--gold)}
 .tiktok-avatar-link>img{width:100%;height:100%;object-fit:cover;display:block}
@@ -11,25 +11,25 @@
 .tiktok-brand-link{display:inline-block}
 .tiktok-profile-copy h3{font:500 32px var(--serif);margin:7px 0 6px}
 .tiktok-username{display:inline-flex;align-items:center;gap:7px;color:var(--gold);font-size:12px}
-.tiktok-profile-copy>p{max-width:490px;color:#b6b3aa;font-size:12px;line-height:1.8;margin:16px 0 22px}
+.tiktok-profile-copy>p{max-width:490px;color:#b6b3aa;font-size:12px;line-height:1.8;margin:12px 0 17px}
 .tiktok-actions{display:flex;flex-wrap:wrap;gap:10px}
 .social-icon-link{display:grid;place-items:center;width:38px;height:38px;color:var(--gold);margin-bottom:14px;border:1px solid #514a3c;transition:color .2s,background .2s,transform .2s}
 .social-icon-link:hover{color:#171612;background:var(--gold);transform:translateY(-2px)}
-.social-follow{padding-top:72px;margin-top:65px;border-top:1px solid var(--line)}
-.social-follow .section-intro{margin-bottom:33px}
+.social-follow{padding-top:48px;margin-top:44px;border-top:1px solid var(--line)}
+.social-follow .section-intro{margin-bottom:24px}
 .social-follow .section-intro h2{font-size:clamp(30px,4vw,47px);letter-spacing:-.03em}
 .social-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-.social-card{height:100%;min-height:234px;padding:22px 19px;background:#131311;border:1px solid #37352f;display:flex;flex-direction:column;align-items:flex-start;transition:transform .25s,border-color .25s,background .25s}
+.social-card{height:100%;min-height:200px;padding:19px 17px;background:#131311;border:1px solid #37352f;display:flex;flex-direction:column;align-items:flex-start;transition:transform .25s,border-color .25s,background .25s}
 .social-card:hover{transform:translateY(-4px);border-color:#7a6847;background:#1c1b17}
 .social-icon-link svg{color:inherit}
 .social-card .eyebrow{font-size:7px}
 .social-card h3{font:500 21px var(--serif);margin:7px 0}
-.social-card p{color:#a7a49a;font-size:10px;line-height:1.7;min-height:50px;margin-bottom:15px}
+.social-card p{color:#a7a49a;font-size:10px;line-height:1.7;min-height:42px;margin-bottom:12px}
 .social-card .button{height:39px;min-height:39px;padding:0 11px;gap:9px;font-size:8px;margin-top:auto}
 .social-card .button:disabled{opacity:.65;cursor:not-allowed;transform:none}
 .social-card small{color:#8c8980;font-size:8px;margin-top:9px}
 .footer-bottom>div>span{color:#8b887f}
-@media(max-width:650px){.social-follow{padding-top:53px;margin-top:48px}.social-cards{grid-template-columns:1fr;gap:10px}.social-card{min-height:0}.social-card p{min-height:0}.tiktok-profile-card{flex-direction:column;text-align:center;padding:25px 18px;gap:22px}.tiktok-avatar-link{flex-basis:126px;width:126px;height:126px}.tiktok-profile-copy h3{font-size:27px}.tiktok-profile-copy>p{font-size:11px;margin:13px auto 19px}.tiktok-actions{justify-content:center}.brand small{letter-spacing:.1em;font-size:7px}}
+@media(max-width:650px){.social-follow{padding-top:34px;margin-top:30px}.social-cards{grid-template-columns:1fr;gap:8px}.social-card{min-height:0}.social-card p{min-height:0}.tiktok-profile-card{flex-direction:column;text-align:center;padding:25px 18px;gap:22px}.tiktok-avatar-link{flex-basis:126px;width:126px;height:126px}.tiktok-profile-copy h3{font-size:27px}.tiktok-profile-copy>p{font-size:11px;margin:13px auto 19px}.tiktok-actions{justify-content:center}.brand small{letter-spacing:.1em;font-size:7px}}
 
 /* Responsive polish and motion preferences */
 html,body,#root{max-width:100%;overflow-x:clip}
@@ -62,18 +62,18 @@ img{max-width:100%}
   .hero h1{font-size:clamp(48px,13.5vw,82px);line-height:.98;overflow-wrap:normal}
   .hero-overline{max-width:100%;font-size:7px;letter-spacing:.12em}
   .hero-place{display:none}
-  .hero-bottom{position:static;margin-top:55px;gap:16px;flex-wrap:wrap}
+  .hero-bottom{position:static;margin-top:36px;gap:14px;flex-wrap:wrap}
   .hero-index{display:none}
   .hero-caption{right:20px;bottom:20px;max-width:calc(100% - 40px);font-size:7px;white-space:nowrap}
-  .section-pad{padding:76px 22px}
+  .section-pad{padding:60px 22px}
   .section-intro{grid-template-columns:1fr;gap:16px}
   .intro-side{position:static;margin-top:-5px}
-  .about-photo{height:min(112vw,430px)}
+  .about-photo{height:min(100vw,365px)}
   .service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .service-card{min-width:0}
-  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:clamp(145px,50vw,220px)}
+  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:clamp(130px,44vw,185px)}
   .project-card.wide{grid-column:span 2}
-  .contact{grid-template-columns:1fr;gap:38px}
+  .contact{grid-template-columns:1fr;gap:28px}
   .contact-form{min-width:0;padding:24px 18px}
   .contact-form input,.contact-form textarea,.contact-form select{min-width:0}
   .footer{padding-inline:22px}
@@ -98,3 +98,29 @@ img{max-width:100%}
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .hero-image{animation:none!important;transform:none!important}
 }
+
+.language-toggle{display:flex;align-items:center;gap:3px;padding:4px;border:1px solid #4b483f;border-radius:999px;white-space:nowrap}
+.language-toggle button{min-height:30px;padding:0 9px;border:0;border-radius:999px;background:transparent;color:#c7c3b9;font-size:10px;cursor:pointer;transition:background .2s,color .2s}
+.language-toggle button:hover,.language-toggle button.selected{background:var(--gold);color:#171612}
+.language-toggle button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+html[lang="am"] body{font-family:'Noto Sans Ethiopic','DM Sans',sans-serif;line-height:1.75}
+html[lang="am"] h1,html[lang="am"] h2,html[lang="am"] h3,html[lang="am"] blockquote,html[lang="am"] .project-title{font-family:'Noto Serif Ethiopic','Playfair Display',serif;line-height:1.42;letter-spacing:0}
+html[lang="am"] .hero h1{line-height:1.45}
+html[lang="am"] .eyebrow,html[lang="am"] .hero-overline,html[lang="am"] .hero-bottom,html[lang="am"] .hero-caption,html[lang="am"] .intro-side,html[lang="am"] .filter,html[lang="am"] .footer-bottom{letter-spacing:0;text-transform:none;line-height:1.65}
+html[lang="am"] .button,html[lang="am"] .nav a,html[lang="am"] .text-link,html[lang="am"] .under-link{letter-spacing:0;line-height:1.5}
+html[lang="am"] .about-copy h2,html[lang="am"] .section-intro h2,html[lang="am"] .contact h2{line-height:1.4}
+html[lang="am"] .body-copy,html[lang="am"] .lead,html[lang="am"] .section-intro>p,html[lang="am"] .service-card p,html[lang="am"] .project-meta,html[lang="am"] .project-type,html[lang="am"] .tiktok-profile-copy>p,html[lang="am"] .social-card p,html[lang="am"] .process-step p,html[lang="am"] .contact-heading>p,html[lang="am"] .form-note{line-height:1.9;overflow-wrap:anywhere}
+html[lang="am"] .contact-form label{line-height:1.7}
+html[lang="am"] .hero-content,html[lang="am"] .section-intro,html[lang="am"] .service-card,html[lang="am"] .social-card,html[lang="am"] .tiktok-profile-card,html[lang="am"] .contact-form{min-width:0}
+.image-nav{position:absolute;z-index:2;top:50%;width:46px;height:46px;display:grid;place-items:center;border:1px solid #605d53;background:rgba(17,17,15,.78);color:#f0eee8;cursor:pointer;transform:translateY(-50%);transition:background .2s,color .2s}.image-nav:hover{background:var(--gold);color:#171612}.image-nav-prev{left:22px}.image-nav-next{right:22px}.image-modal{width:min(1000px,90vw);min-width:0}.image-modal img{width:100%;height:auto;max-height:82vh;object-fit:contain}.hero-image{background-image:url('/images/photo1.jpg');background-position:center 48%}.film-image{background-image:url('/images/photo4.jpg')}
+@media(max-width:650px){.image-nav{width:38px;height:38px}.image-nav-prev{left:8px}.image-nav-next{right:8px}}
+@media(max-width:780px){
+  .menu-toggle{display:grid;place-items:center;color:#e9e6de}
+  .nav{display:none;position:absolute;top:68px;left:0;right:0;padding:18px 23px 24px;background:#171715;border-bottom:1px solid var(--line);align-items:stretch;gap:0}
+  .nav.open{display:flex;flex-direction:column}
+  .nav>a{padding:13px 0;border-bottom:1px solid #30302b}
+  .nav .nav-contact{margin-top:12px;padding:12px 15px;justify-content:space-between}
+  .language-toggle{align-self:flex-start;margin:13px 0 2px}
+}
+@media(max-width:650px){.nav{top:68px}.language-toggle{margin:12px 0}.language-toggle button{min-height:36px;padding-inline:12px}}
+@media(max-width:380px){.language-toggle button{padding-inline:8px;font-size:9px}html[lang="am"] .hero h1{font-size:42px}.nav{padding-inline:18px}}

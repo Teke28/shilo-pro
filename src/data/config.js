@@ -7,6 +7,6 @@ export const creator = {
   profileImage: '/images/photo2.jpg',
   phone: '',
   whatsapp: '',
-  email: 'hello@example.com',
+  email: 'tasfeyetakele@gmail.com',
   location: 'Addis Ababa, Ethiopia',
 }
