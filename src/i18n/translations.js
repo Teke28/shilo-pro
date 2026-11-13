@@ -6,6 +6,8 @@ export const translations = {
     'Switch to English': 'ወደ እንግሊዝኛ ቀይር', 'Switch to Amharic': 'ወደ አማርኛ ቀይር', 'Language': 'ቋንቋ',
     'Capturing Moments, Creating Stories.': 'አፍታዎችን እንይዛለን፣ ታሪኮችን እንፈጥራለን።', 'Stories worth feeling.': 'በስሜት የሚነኩ ታሪኮች።', 'Frames from the feeling.': 'በምስል የተቀረጹ የስሜት አፍታዎች።',
     'Name:': 'ስም፦', 'Email:': 'ኢሜይል፦', 'Phone:': 'ስልክ፦', 'Service:': 'አገልግሎት፦', 'Not provided': 'አልተሰጠም', 'Portfolio enquiry': 'የፖርትፎሊዮ ጥያቄ',
+    'TikTok Videos': 'የTikTok ቪዲዮዎች', 'TikTok videos are coming soon.': 'የTikTok ቪዲዮዎች በቅርቡ ይቀርባሉ።', 'Visit our TikTok profile to see the latest videos.': 'የቅርብ ጊዜ ቪዲዮዎቻችንን ለማየት የTikTok መገለጫችንን ይጎብኙ።', 'Visit TikTok profile': 'የTikTok መገለጫን ይጎብኙ', 'Watch on TikTok:': 'በTikTok ይመልከቱ፦',
+    'Browse selected videos and watch them directly on TikTok.': 'የተመረጡ ቪዲዮዎችን ይመልከቱና በቀጥታ በTikTok ይክፈቷቸው።',
     'primary-navigation': 'ዋና ምናሌ', 'Follow on': 'በ', 'ALWAYS': 'ሁልጊዜ', 'LOOKING': 'እየተመለከትን', 'CLOSER': 'በጥልቀት', '01 — SERVICES': '01 — አገልግሎቶች',
     'Previous image': 'ቀዳሚው ምስል', 'Next image': 'ቀጣዩ ምስል',
     'Open SHILO Production TikTok profile': 'የSHILO Production TikTok መገለጫን ይክፈቱ', '01 / 01': '01 / 01', 'you@example.com': 'you@example.com', '+251 …': '+251 …', 'URL NEEDED': 'URL ያስፈልጋል',
