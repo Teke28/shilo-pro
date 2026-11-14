@@ -2,6 +2,7 @@ export const translations = {
   en: {},
   am: {
     'About': 'ስለ እኛ', 'Services': 'አገልግሎቶች', 'Work': 'ሥራዎቻችን', 'TikTok': 'TikTok', 'Let’s talk': 'እንነጋገር',
+    '01 — THE STUDIO': '01 — ስቱዲዮው', 'A LITTLE ABOUT THE STUDIO': 'ስለ ስቱዲዮው በጥቂቱ', 'Skip to content': 'ወደ ዋናው ይዘት ይሂዱ', 'image preview': 'የምስል ቅድመ እይታ',
     'Open menu': 'ምናሌውን ክፈት', 'Close menu': 'ምናሌውን ዝጋ', 'SHILO Production home': 'የ SHILO Production መነሻ ገጽ',
     'Switch to English': 'ወደ እንግሊዝኛ ቀይር', 'Switch to Amharic': 'ወደ አማርኛ ቀይር', 'Language': 'ቋንቋ',
     'Capturing Moments, Creating Stories.': 'አፍታዎችን እንይዛለን፣ ታሪኮችን እንፈጥራለን።', 'Stories worth feeling.': 'በስሜት የሚነኩ ታሪኮች።', 'Frames from the feeling.': 'በምስል የተቀረጹ የስሜት አፍታዎች።',
@@ -24,6 +25,7 @@ export const translations = {
     'Photography, film, and creative content made with care.': 'ፎቶግራፊ፣ ፊልም እና የፈጠራ ይዘቶችን በጥንቃቄ እንፈጥራለን።',
     'Explore our work': 'ሥራዎቻችንን ይመልከቱ', 'About the studio': 'ስለ ስቱዲዮው',
     'SCROLL TO EXPLORE': 'ለማሰስ ወደ ታች ይሸብልሉ', 'PHOTO · FILM · DIGITAL': 'ፎቶ · ፊልም · ዲጂታል',
+    'Portfolio overview': 'የፖርትፎሊዮ አጠቃላይ እይታ', 'selected portfolio stories': 'የተመረጡ የፖርትፎሊዮ ታሪኮች',
     'SHILO PRODUCTION': 'SHILO PRODUCTION', 'PHOTOGRAPHY': 'ፎቶግራፊ', 'FILMMAKING': 'ፊልም ሥራ', 'VISUAL STORIES': 'በምስል የሚነገሩ ታሪኮች', 'GOOD PEOPLE, GOOD LIGHT': 'ጥሩ ሰዎች፣ ውብ ብርሃን',
     'Photography, film, and stories': 'ፎቶግራፊ፣ ፊልም እና ታሪኮች',
     'Portrait of the creator': 'የፈጣሪው ምስል', 'SHILO Production profile': 'የ SHILO Production መገለጫ ምስል',

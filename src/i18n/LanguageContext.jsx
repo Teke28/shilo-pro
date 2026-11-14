@@ -35,7 +35,12 @@ const untouchedProps = new Set(['children', 'className', 'id', 'key', 'ref', 'hr
 
 function translateTree(node, t) {
   if (typeof node === 'string') return t(node)
-  if (Array.isArray(node)) return node.map(child => translateTree(child, t))
+  if (Array.isArray(node)) return node.map((child, index) => {
+    const translated = translateTree(child, t)
+    return isValidElement(translated) && translated.key == null
+      ? cloneElement(translated, { key: `localized-${index}` })
+      : translated
+  })
   if (!isValidElement(node)) return node
 
   const props = {}
