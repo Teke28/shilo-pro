@@ -418,3 +418,40 @@ main:focus{outline:0}
   .hero-content,.hero h1{animation:none!important}
   .nav>a:not(.nav-contact):after,.nav-dropdown>summary:after{transition:none}
 }
+
+/* Platform brand colors for every configured social icon */
+.social-brand-icon--facebook{color:#1877f2}
+.social-brand-icon--instagram{color:#e1306c}
+.brand-tiktok{overflow:visible}
+.brand-tiktok-cyan{fill:#25f4ee}
+.brand-tiktok-red{fill:#fe2c55}
+.brand-tiktok-core{fill:#fff}
+.tiktok-avatar-badge .brand-tiktok-core{fill:#171612}
+.social-icon-link .social-brand-icon--facebook{color:#1877f2}
+.social-icon-link .social-brand-icon--instagram{color:#e1306c}
+.social-icon-link[data-platform],.about-instagram[data-platform]{transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease}
+.social-icon-link[data-platform]:hover,.about-instagram[data-platform]:hover{transform:translateY(-2px) scale(1.045)}
+.social-icon-link[data-platform="facebook"]:hover,.footer-socials a[data-platform="facebook"]:hover{border-color:#1877f2;background:rgba(24,119,242,.12);box-shadow:0 0 18px rgba(24,119,242,.18)}
+.social-icon-link[data-platform="instagram"]:hover,.about-instagram[data-platform="instagram"]:hover,.footer-socials a[data-platform="instagram"]:hover{border-color:#d62976;background:rgba(214,41,118,.12);box-shadow:0 0 18px rgba(214,41,118,.2)}
+.social-icon-link[data-platform="tiktok"]:hover,.footer-socials a[data-platform="tiktok"]:hover{border-color:#25f4ee;background:rgba(37,244,238,.09);box-shadow:0 0 18px rgba(37,244,238,.16)}
+.footer-socials a[data-platform="facebook"] svg,.footer-socials a[data-platform="instagram"] svg{color:currentColor}
+.footer-socials a[data-platform="facebook"]{color:#1877f2}
+.footer-socials a[data-platform="instagram"]{color:#e1306c}
+.footer-socials a[data-platform="tiktok"]{color:#fff}
+.tiktok-video-logo .brand-tiktok-core{fill:#fff}
+.social-icon-link:focus-visible,.about-instagram:focus-visible,.footer-socials a:focus-visible{outline:2px solid #f1d49d;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.social-icon-link[data-platform],.about-instagram[data-platform]{transition:none}}
+
+/* Telegram and WhatsApp brand links */
+.social-brand-icon--telegram,.contact-social-link[data-platform="telegram"] svg{color:#0088cc}
+.social-brand-icon--whatsapp,.contact-social-link[data-platform="whatsapp"] svg{color:#25d366}
+.social-icon-link[data-platform="telegram"]:hover,.footer-socials a[data-platform="telegram"]:hover,.contact-social-link[data-platform="telegram"]:hover{border-color:#0088cc;background:rgba(0,136,204,.12);box-shadow:0 0 18px rgba(0,136,204,.2)}
+.social-icon-link[data-platform="whatsapp"]:hover,.footer-socials a[data-platform="whatsapp"]:hover,.contact-social-link[data-platform="whatsapp"]:hover{border-color:#25d366;background:rgba(37,211,102,.12);box-shadow:0 0 18px rgba(37,211,102,.2)}
+.footer-socials a[data-platform="telegram"]{color:#0088cc}
+.footer-socials a[data-platform="whatsapp"]{color:#25d366}
+.contact-social-links{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 10px}
+.contact-social-link{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:8px 12px;border:1px solid #514a3c;border-radius:999px;color:var(--paper);font-size:14px;text-decoration:none;transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease}
+.contact-social-link:hover{transform:translateY(-2px)}
+.contact-social-link:focus-visible{outline:2px solid #f1d49d;outline-offset:4px}
+@media(max-width:600px){.contact-social-links{gap:8px}.contact-social-link{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.contact-social-link{transition:none}}

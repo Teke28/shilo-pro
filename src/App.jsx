@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, ArrowRight, ArrowUpRight, Camera, CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, Facebook, Instagram, Mail, MapPin, Menu, Palette, Phone, Play, Scissors, Share2, Sparkles, Video, X } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUpRight, Camera, CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, Facebook, Mail, MapPin, Menu, Palette, Phone, Play, Scissors, Share2, Sparkles, Video, X } from 'lucide-react'
 import { creator } from './data/config.js'
 import { socialLinks } from './config/socialLinks.js'
 import { projects, services } from './data/content.js'
@@ -11,8 +11,10 @@ const photo = (id, w = 1000) => id.startsWith('/') ? id : `https://images.unspla
 const iconMap = { camera: Camera, video: Video, sparkles: Sparkles, scissors: Scissors, calendar: CalendarDays, share: Share2 }
 const socialPlatforms = [
   { key: 'facebook', title: 'Facebook', username: 'SHILO Production', Icon: Facebook },
-  { key: 'instagram', title: 'Instagram', username: '@mame1431m', Icon: Instagram },
+  { key: 'instagram', title: 'Instagram', username: '@mame1431m', Icon: InstagramBrandIcon },
   { key: 'tiktok', title: 'TikTok', username: '@shiloproduction', Icon: TikTokIcon },
+  { key: 'telegram', title: 'Telegram', username: '@shilo1431MK', Icon: TelegramBrandIcon },
+  { key: 'whatsapp', title: 'WhatsApp', username: '+251994326761', Icon: WhatsAppBrandIcon },
 ]
 const nav = [['About', '#about'], ['Services', '#services'], ['Work', '#work'], ['TikTok Videos', '#tiktok-videos']]
 const publishedTikTokVideos = tiktokVideos.filter(({ url }) => {
@@ -22,7 +24,25 @@ const publishedTikTokVideos = tiktokVideos.filter(({ url }) => {
   } catch { return false }
 })
 
-function TikTokIcon({ size = 24 }) { return <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.43v13.67a2.9 2.9 0 0 1-2.9 2.9 2.9 2.9 0 1 1 2.9-2.9c0-.19-.02-.38-.05-.56v-3.5a6.34 6.34 0 1 0 3.48 5.65V8.28a8.16 8.16 0 0 0 4.77 1.54V6.4c-.34 0-.68-.04-1-.11Z"/></svg> }
+function InstagramBrandIcon({ size = 24, className = '', ...props }) {
+  const gradientId = `instagram-gradient-${useId().replaceAll(':', '')}`
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+    <defs><linearGradient id={gradientId} x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse"><stop stopColor="#FEDA75"/><stop offset=".28" stopColor="#FA7E1E"/><stop offset=".52" stopColor="#D62976"/><stop offset=".76" stopColor="#962FBF"/><stop offset="1" stopColor="#4F5BD5"/></linearGradient></defs>
+    <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" stroke={`url(#${gradientId})`} strokeWidth="1.9"/>
+    <circle cx="12" cy="12" r="4.05" stroke={`url(#${gradientId})`} strokeWidth="1.9"/>
+    <circle cx="17.65" cy="6.45" r="1.15" fill="#FEDA75"/>
+  </svg>
+}
+function TikTokIcon({ size = 24, className = '' }) {
+  const mark = 'M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.43v13.67a2.9 2.9 0 0 1-2.9 2.9 2.9 2.9 0 1 1 2.9-2.9c0-.19-.02-.38-.05-.56v-3.5a6.34 6.34 0 1 0 3.48 5.65V8.28a8.16 8.16 0 0 0 4.77 1.54V6.4c-.34 0-.68-.04-1-.11Z'
+  return <svg className={`brand-tiktok ${className}`} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true"><path className="brand-tiktok-cyan" d={mark} transform="translate(-.8 .45)"/><path className="brand-tiktok-red" d={mark} transform="translate(.8 -.35)"/><path className="brand-tiktok-core" d={mark}/></svg>
+}
+function TelegramBrandIcon({ size = 24, className = '', ...props }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><path fill="currentColor" d="M21.8 4.2 18.6 20c-.24 1.12-.88 1.4-1.78.87l-4.92-3.63-2.38 2.29c-.26.26-.48.48-.98.48l.35-5 9.1-8.22c.4-.35-.09-.55-.62-.2L6.12 13.68l-4.85-1.52c-1.05-.33-1.07-1.05.22-1.56L20.46 3.1c.87-.32 1.63.2 1.34 1.1Z"/></svg>
+}
+function WhatsAppBrandIcon({ size = 24, className = '', ...props }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><path fill="currentColor" d="M12.04 2a9.86 9.86 0 0 0-8.48 14.9L2 22l5.22-1.53A9.93 9.93 0 1 0 12.04 2Zm0 18.03a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.1.91.92-3.02-.2-.31a8.14 8.14 0 1 1 6.81 3.73Zm4.47-6.1c-.25-.13-1.48-.73-1.71-.81-.23-.09-.4-.13-.56.13-.17.25-.65.81-.8.97-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.14-.25-.01-.39.11-.52.11-.1.25-.27.37-.41.13-.15.17-.25.25-.42.09-.16.05-.31-.02-.44-.06-.12-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.23.9 2.42 1.02 2.59.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.14.16 1.57.1.48-.07 1.48-.61 1.69-1.2.21-.6.21-1.11.15-1.21-.06-.1-.23-.16-.48-.29Z"/></svg>
+}
 
 function Header() {
   const [open, setOpen] = useState(false)
@@ -43,7 +63,7 @@ function Header() {
 function Reveal({ children, className = '', delay = 0 }) { const reduceMotion = useReducedMotion(); return <motion.div className={className} initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: reduceMotion ? 0 : .65, delay: reduceMotion ? 0 : delay, ease: [.2, .7, .2, 1] }}>{children}</motion.div> }
 function SectionIntro({ kicker, title, children, side }) { return <div className="section-intro"><div><span className="eyebrow">{kicker}</span><h2>{title}</h2></div>{children && <p>{children}</p>}{side && <span className="intro-side">{side}</span>}</div> }
 function SocialFollow() {
-  return <Localized><section className="social-follow section-pad" id="social"><Reveal><SectionIntro kicker="Stay connected" title={<>CONNECT WITH <em>SHILO Production</em></>} side="SOCIAL">Follow SHILO Production across our official social media profiles.</SectionIntro></Reveal><div className="social-cards">{socialPlatforms.map(({ key, title, username, Icon }) => { const url = socialLinks[key]; return <Reveal key={key}><article className="social-card"><a className="social-icon-link" href={url} target="_blank" rel="noopener noreferrer" aria-label={`Open SHILO Production on ${title}`}><Icon size={24} strokeWidth={1.5}/></a><span className="eyebrow">SHILO PRODUCTION</span><h3>{title}</h3><p>{username}</p><a className="button button-outline" href={url} target="_blank" rel="noopener noreferrer">Follow on {title} <ArrowUpRight size={15}/></a></article></Reveal>})}</div></section></Localized>
+  return <Localized><section className="social-follow section-pad" id="social"><Reveal><SectionIntro kicker="Stay connected" title={<>CONNECT WITH <em>SHILO Production</em></>} side="SOCIAL">Follow SHILO Production across our official social media profiles.</SectionIntro></Reveal><div className="social-cards">{socialPlatforms.map(({ key, title, username, Icon }) => { const url = socialLinks[key]; return <Reveal key={key}><article className="social-card"><a className="social-icon-link" data-platform={key} href={url} target="_blank" rel="noopener noreferrer" aria-label={`${key === 'whatsapp' ? 'Message' : 'Open'} SHILO Production on ${title}`}><Icon className={`social-brand-icon social-brand-icon--${key}`} size={24} strokeWidth={1.5}/></a><span className="eyebrow">SHILO PRODUCTION</span><h3>{title}</h3><p>{username}</p><a className="button button-outline" href={url} target="_blank" rel="noopener noreferrer">{key === 'whatsapp' ? 'Message on WhatsApp' : key === 'telegram' ? 'Open Telegram' : `Follow on ${title}`} <ArrowUpRight size={15}/></a></article></Reveal>})}</div></section></Localized>
 }
 
 function App() {
@@ -82,7 +102,7 @@ function App() {
             <img className="about-photo" src={creator.profileImage} alt="Portrait of the creator" loading="lazy" decoding="async" width="852" height="1280"/>
             <span className="photo-stamp">ALWAYS<br/>LOOKING<br/>CLOSER <i>✳</i></span>
             <span className="photo-label">THE PERSON BEHIND THE LENS</span>
-            <a className="about-instagram" href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label={t('Open SHILO Production on Instagram')}><Instagram size={17} aria-hidden="true"/><span>@shiloproduction</span><ArrowUpRight size={14} aria-hidden="true"/></a>
+            <a className="about-instagram" data-platform="instagram" href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label={t('Open SHILO Production on Instagram')}><InstagramBrandIcon className="social-brand-icon social-brand-icon--instagram" size={17}/><span>@shiloproduction</span><ArrowUpRight size={14} aria-hidden="true"/></a>
           </div>
         </Reveal>
         <div className="about-copy">
@@ -109,7 +129,7 @@ function App() {
 
       <section className="quote-section"><div className="quote-mark">“</div><Reveal><blockquote>“It felt less like a shoot and more like having a friend who happens to know exactly where the light is.”</blockquote><div className="quote-credit"><span className="quote-line"/> CLIENT NOTE <span>·</span> SAMPLE TESTIMONIAL</div></Reveal><div className="quote-count">KIND WORDS <span>01 / 01</span></div></section>
 
-    <section className="contact section-pad" id="contact"><Reveal><div className="contact-heading"><span className="eyebrow">The beginning of something</span><h2>Have a story<br/>in <em>mind?</em></h2><p>Tell me a little about it. Big plans, half-formed ideas and “what ifs” are all welcome here.</p><a className="contact-email" href={`mailto:${creator.email}`}>{creator.email} <ArrowUpRight size={18}/></a><a className="contact-phone" href={`tel:${creator.phone}`} aria-label={t('Call SHILO Production')}><Phone size={16}/><span>{creator.phone}</span></a><div className="contact-location"><span className="pulse"/>{creator.location}</div></div></Reveal><Reveal delay={.12}><form className="contact-form" onSubmit={handleSubmit}><div className="form-top"><span className="eyebrow">Send a note</span><span>01 — 05</span></div><label>Your name<input name="name" placeholder="What should I call you?" required/></label><label>Email address<input type="email" name="email" placeholder="you@example.com" required/></label><label>Phone number<input type="tel" name="phone" placeholder="+251 …" /></label><label>What are you dreaming up?<select name="service" defaultValue="" required><option value="" disabled>Choose a service</option><option>Photography</option><option>Film & videography</option><option>Social content</option><option>Event coverage</option><option>Something else</option></select></label><label>A few more details<textarea name="details" placeholder="The date, the feeling, the big idea…" rows="3" required/></label><button type="submit" className="button button-gold form-submit">{sent ? <>Email draft opened <Check size={16}/></> : <>Open email draft <ArrowRight size={16}/></>}</button>{sent && <p className="form-note" role="status">{t("Your email app should open with your message addressed to")} {creator.email}. {t("If the email draft does not open, write directly to that address.")}</p>}<p className="form-note">This form opens your email app; it does not send or store your information.</p></form></Reveal></section>
+    <section className="contact section-pad" id="contact"><Reveal><div className="contact-heading"><span className="eyebrow">The beginning of something</span><h2>Have a story<br/>in <em>mind?</em></h2><p>Tell me a little about it. Big plans, half-formed ideas and “what ifs” are all welcome here.</p><a className="contact-email" href={`mailto:${creator.email}`}>{creator.email} <ArrowUpRight size={18}/></a><a className="contact-phone" href={`tel:${creator.phone}`} aria-label={t('Call SHILO Production')}><Phone size={16}/><span>{creator.phone}</span></a><div className="contact-social-links" aria-label="Message SHILO Production"><a className="contact-social-link" data-platform="telegram" href={socialLinks.telegram} target="_blank" rel="noopener noreferrer" aria-label="Open SHILO Production on Telegram"><TelegramBrandIcon size={18}/><span>Telegram</span></a><a className="contact-social-link" data-platform="whatsapp" href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Message SHILO Production on WhatsApp"><WhatsAppBrandIcon size={18}/><span>WhatsApp</span></a></div><div className="contact-location"><span className="pulse"/>{creator.location}</div></div></Reveal><Reveal delay={.12}><form className="contact-form" onSubmit={handleSubmit}><div className="form-top"><span className="eyebrow">Send a note</span><span>01 — 05</span></div><label>Your name<input name="name" placeholder="What should I call you?" required/></label><label>Email address<input type="email" name="email" placeholder="you@example.com" required/></label><label>Phone number<input type="tel" name="phone" placeholder="+251 …" /></label><label>What are you dreaming up?<select name="service" defaultValue="" required><option value="" disabled>Choose a service</option><option>Photography</option><option>Film & videography</option><option>Social content</option><option>Event coverage</option><option>Something else</option></select></label><label>A few more details<textarea name="details" placeholder="The date, the feeling, the big idea…" rows="3" required/></label><button type="submit" className="button button-gold form-submit">{sent ? <>Email draft opened <Check size={16}/></> : <>Open email draft <ArrowRight size={16}/></>}</button>{sent && <p className="form-note" role="status">{t("Your email app should open with your message addressed to")} {creator.email}. {t("If the email draft does not open, write directly to that address.")}</p>}<p className="form-note">This form opens your email app; it does not send or store your information.</p></form></Reveal></section>
     </main>
     <footer className="footer">
       <div className="footer-main">
@@ -118,7 +138,7 @@ function App() {
           <p className="footer-description">{creator.bio}</p>
           <p className="footer-slogan">{creator.tagline}</p>
           <div className="footer-socials" aria-label={t('Connect with us')}>
-            {socialPlatforms.map(({ key, title, Icon }) => <a key={key} href={socialLinks[key]} target="_blank" rel="noopener noreferrer" aria-label={t(`Follow ${title} profile`)}><Icon size={19} strokeWidth={1.6}/></a>)}
+            {socialPlatforms.map(({ key, title, Icon }) => <a key={key} data-platform={key} href={socialLinks[key]} target="_blank" rel="noopener noreferrer" aria-label={t(`Follow ${title} profile`)}><Icon className={`social-brand-icon social-brand-icon--${key}`} size={19} strokeWidth={1.6}/></a>)}
           </div>
         </section>
 
