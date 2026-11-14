@@ -80,6 +80,16 @@ export const projects = [
     height: 1017, 
     size: 'normal', 
     note: 'Product & campaign' },
+  { title: 'An Evening Portrait', type: 'Photography', category: 'Photography', image: '/images/photo11.jpg', width: 2718, height: 4687, size: 'normal', note: 'Portrait photography' },
+  { title: 'Between the Moments', type: 'Photography', category: 'Photography', image: '/images/photo12.jpg', width: 1982, height: 3652, size: 'normal', note: 'Portrait study' },
+  { title: 'Quiet Night', type: 'Photography', category: 'Photography', image: '/images/photo13.jpg', width: 2752, height: 3669, size: 'normal', note: 'Lifestyle photography' },
+  { title: 'The Green Between', type: 'Photography', category: 'Photography', image: '/images/photo14.jpg', width: 2268, height: 4032, size: 'normal', note: 'Outdoor portrait' },
+  { title: 'A Moment Outside', type: 'Photography', category: 'Photography', image: '/images/photo15.jpg', width: 2268, height: 4032, size: 'normal', note: 'Outdoor portrait' },
+  { title: 'Behind the Lights', type: 'Videography', category: 'Videography', image: '/images/photo16.jpg', width: 3024, height: 4032, size: 'normal', note: 'Behind the scenes' },
+  { title: 'Open Air', type: 'Photography', category: 'Photography', image: '/images/photo17.jpg', width: 3024, height: 4032, size: 'normal', note: 'Lifestyle portrait' },
+  { title: 'City Frame', type: 'Photography', category: 'Photography', image: '/images/photo18.jpg', width: 3024, height: 4032, size: 'normal', note: 'Street portrait' },
+  { title: 'At Work', type: 'Photography', category: 'Photography', image: '/images/photo19.jpg', width: 3024, height: 4032, size: 'normal', note: 'Documentary portrait' },
+  { title: 'In the Garden', type: 'Photography', category: 'Photography', image: '/images/photo20.jpg', width: 3024, height: 4032, size: 'normal', note: 'Outdoor portrait' },
 ]
 export const services = [
   { num: '01', 
