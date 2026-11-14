@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, ArrowRight, ArrowUpRight, Camera, CalendarDays, Check, ChevronLeft, ChevronRight, Facebook, Instagram, Menu, Play, Scissors, Share2, Sparkles, Video, X } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUpRight, Camera, CalendarDays, Check, ChevronLeft, ChevronRight, Facebook, Instagram, Mail, MapPin, Menu, Palette, Phone, Play, Scissors, Share2, Sparkles, Video, X } from 'lucide-react'
 import { creator } from './data/config.js'
 import { socialLinks } from './config/socialLinks.js'
 import { projects, services } from './data/content.js'
@@ -30,8 +30,14 @@ function Header() {
   const { language, setLanguage, t } = useLanguage()
   useEffect(() => {
     const onScroll = () => { let current = ''; nav.forEach(([label, id]) => { const el = document.querySelector(id); if (el && window.scrollY >= el.offsetTop - 140) current = label }); setActive(current) }
-    window.addEventListener('scroll', onScroll); return () => window.removeEventListener('scroll', onScroll)
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true }); return () => window.removeEventListener('scroll', onScroll)
   }, [])
+  useEffect(() => {
+    if (!open) return
+    const closeOnEscape = event => { if (event.key === 'Escape') setOpen(false) }
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [open])
   return <Localized><header className="header"><a className="brand" href="#home" aria-label={`${creator.brand} home`}><span className="brand-mark">SP</span><span>{creator.brand}<small>CAPTURING MOMENTS · CREATING STORIES</small></span></a><button className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</button><nav id="primary-navigation" className={open ? 'nav open' : 'nav'}>{nav.map(([label, href]) => <a key={label} className={active === label ? 'active' : ''} href={href} onClick={() => setOpen(false)}>{t(label)}</a>)}<div className="language-toggle" role="group" aria-label={t('Language')}><button type="button" className={language === 'en' ? 'selected' : ''} aria-pressed={language === 'en'} aria-label={t('Switch to English')} onClick={() => { setLanguage('en'); setOpen(false) }}>🇬🇧 <span>EN</span></button><button type="button" className={language === 'am' ? 'selected' : ''} aria-pressed={language === 'am'} aria-label={t('Switch to Amharic')} onClick={() => { setLanguage('am'); setOpen(false) }}>🇪🇹 <span>አማ</span></button></div><a className="nav-contact" href="#contact" onClick={() => setOpen(false)}>{t('Let’s talk')} <ArrowUpRight size={15}/></a></nav></header></Localized>
 }
 function Reveal({ children, className = '', delay = 0 }) { const reduceMotion = useReducedMotion(); return <motion.div className={className} initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: reduceMotion ? 0 : .65, delay: reduceMotion ? 0 : delay, ease: [.2, .7, .2, 1] }}>{children}</motion.div> }
@@ -66,7 +72,7 @@ function App() {
   return <Localized><>
     <Header/>
     <main>
-      <section className="hero" id="home"><div className="hero-image"/><div className="hero-shade"/><div className="hero-content"><div className="hero-overline"><span className="pulse"/> SHILO PRODUCTION <span className="hero-place">BASED IN ADDIS ABABA, ETHIOPIA</span></div><h1>{language === 'am' ? t('Stories worth feeling.') : <>Stories worth<br/> <em>feeling.</em></>}</h1><p className="hero-copy">{creator.tagline} Photography, film, and creative content made with care.</p><div className="hero-actions"><a href="#work" className="button button-gold">Explore our work <ArrowRight size={16}/></a><a href="#about" className="text-link">About the studio <ArrowDown size={15}/></a></div><div className="hero-bottom"><span>SCROLL TO EXPLORE <ArrowDown size={13}/></span><span>PHOTO · FILM · DIGITAL</span></div><div className="hero-index">01 <i/> 05</div></div><div className="hero-caption"><span>SHILO PRODUCTION</span> CAPTURING MOMENTS · CREATING STORIES</div></section>
+      <section className="hero" id="home"><div className="hero-image"/><div className="hero-shade"/><div className="hero-content"><div className="hero-overline"><span className="pulse"/> SHILO PRODUCTION <span className="hero-place">BASED IN ADDIS ABABA, ETHIOPIA</span></div><h1>{language === 'am' ? t('Stories worth feeling.') : <>Stories worth<br/> <em>feeling.</em></>}</h1><p className="hero-copy">{t(creator.tagline)} {t(creator.heroDescription)}</p><div className="hero-actions"><a href="#work" className="button button-gold">Explore our work <ArrowRight size={16}/></a><a href="#about" className="text-link">About the studio <ArrowDown size={15}/></a></div><div className="hero-bottom"><span>SCROLL TO EXPLORE <ArrowDown size={13}/></span><span>PHOTO · FILM · DIGITAL</span></div><div className="hero-index">01 <i/> 05</div></div><div className="hero-caption"><span>SHILO PRODUCTION</span> CAPTURING MOMENTS · CREATING STORIES</div></section>
       <div className="ticker" aria-label="Photography, film, and stories"><div className="ticker-track">{Array.from({length: 2}, (_, i) => <span key={i}>PHOTOGRAPHY <b>✳</b> FILMMAKING <b>✳</b> VISUAL STORIES <b>✳</b> GOOD PEOPLE, GOOD LIGHT <b>✳</b>&nbsp;</span>)}</div></div>
 
       <section className="about section-pad" id="about"><div className="about-photo-wrap"><img className="about-photo" src={creator.profileImage} alt="Portrait of the creator" loading="lazy" decoding="async" width="852" height="1280"/><span className="photo-stamp">ALWAYS<br/>LOOKING<br/>CLOSER <i>✳</i></span><span className="photo-label">THE PERSON BEHIND THE LENS</span></div><div className="about-copy"><Reveal><span className="eyebrow">A little about me</span><h2>Curiosity first.<br/><em>Camera second.</em></h2><p className="lead">I believe the best images don’t just show you something. They make you feel something.</p><p className="body-copy">From the quiet in-between moments to the energy of a packed dance floor, I make photographs and films that feel honest, considered and unmistakably human. Every project starts with listening, then finding the light in the story only you can tell.</p><div className="skill-list">{['Photography', 'Cinematography', 'Creative direction', 'Video editing', 'Social content'].map(s => <span key={s}>{s}</span>)}</div><a className="under-link" href="#contact">Let’s make something meaningful <ArrowUpRight size={16}/></a></Reveal></div></section>
@@ -86,9 +92,48 @@ function App() {
 
       <section className="quote-section"><div className="quote-mark">“</div><Reveal><blockquote>“It felt less like a shoot and more like having a friend who happens to know exactly where the light is.”</blockquote><div className="quote-credit"><span className="quote-line"/> CLIENT NOTE <span>·</span> SAMPLE TESTIMONIAL</div></Reveal><div className="quote-count">KIND WORDS <span>01 / 01</span></div></section>
 
-    <section className="contact section-pad" id="contact"><Reveal><div className="contact-heading"><span className="eyebrow">The beginning of something</span><h2>Have a story<br/>in <em>mind?</em></h2><p>Tell me a little about it. Big plans, half-formed ideas and “what ifs” are all welcome here.</p><a className="contact-email" href={`mailto:${creator.email}`}>{creator.email} <ArrowUpRight size={18}/></a><div className="contact-location"><span className="pulse"/>{creator.location}</div></div></Reveal><Reveal delay={.12}><form className="contact-form" onSubmit={handleSubmit}><div className="form-top"><span className="eyebrow">Send a note</span><span>01 — 05</span></div><label>Your name<input name="name" placeholder="What should I call you?" required/></label><label>Email address<input type="email" name="email" placeholder="you@example.com" required/></label><label>Phone number<input type="tel" name="phone" placeholder="+251 …" /></label><label>What are you dreaming up?<select name="service" defaultValue="" required><option value="" disabled>Choose a service</option><option>Photography</option><option>Film & videography</option><option>Social content</option><option>Event coverage</option><option>Something else</option></select></label><label>A few more details<textarea name="details" placeholder="The date, the feeling, the big idea…" rows="3" required/></label><button type="submit" className="button button-gold form-submit">{sent ? <>Email draft opened <Check size={16}/></> : <>Open email draft <ArrowRight size={16}/></>}</button>{sent && <p className="form-note" role="status">{t("Your email app should open with your message addressed to")} {creator.email}. {t("If the email draft does not open, write directly to that address.")}</p>}<p className="form-note">This form opens your email app; it does not send or store your information.</p></form></Reveal></section>
+    <section className="contact section-pad" id="contact"><Reveal><div className="contact-heading"><span className="eyebrow">The beginning of something</span><h2>Have a story<br/>in <em>mind?</em></h2><p>Tell me a little about it. Big plans, half-formed ideas and “what ifs” are all welcome here.</p><a className="contact-email" href={`mailto:${creator.email}`}>{creator.email} <ArrowUpRight size={18}/></a><a className="contact-phone" href={`tel:${creator.phone}`} aria-label={t('Call SHILO Production')}><Phone size={16}/><span>{creator.phone}</span></a><div className="contact-location"><span className="pulse"/>{creator.location}</div></div></Reveal><Reveal delay={.12}><form className="contact-form" onSubmit={handleSubmit}><div className="form-top"><span className="eyebrow">Send a note</span><span>01 — 05</span></div><label>Your name<input name="name" placeholder="What should I call you?" required/></label><label>Email address<input type="email" name="email" placeholder="you@example.com" required/></label><label>Phone number<input type="tel" name="phone" placeholder="+251 …" /></label><label>What are you dreaming up?<select name="service" defaultValue="" required><option value="" disabled>Choose a service</option><option>Photography</option><option>Film & videography</option><option>Social content</option><option>Event coverage</option><option>Something else</option></select></label><label>A few more details<textarea name="details" placeholder="The date, the feeling, the big idea…" rows="3" required/></label><button type="submit" className="button button-gold form-submit">{sent ? <>Email draft opened <Check size={16}/></> : <>Open email draft <ArrowRight size={16}/></>}</button>{sent && <p className="form-note" role="status">{t("Your email app should open with your message addressed to")} {creator.email}. {t("If the email draft does not open, write directly to that address.")}</p>}<p className="form-note">This form opens your email app; it does not send or store your information.</p></form></Reveal></section>
     </main>
-    <footer className="footer"><div className="footer-top"><a className="brand" href="#home"><span className="brand-mark">SP</span><span>{creator.brand}<small>CAPTURING MOMENTS · CREATING STORIES</small></span></a><p>Capturing moments, creating memories,<br/>and telling stories through visuals.</p><a href="#home" className="back-top">BACK TO THE TOP <ArrowUpRight size={15}/></a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} SHILO Production. MADE WITH INTENTION.</span><div>{socialPlatforms.map(({ key, title }) => socialLinks[key] ? <a key={key} href={socialLinks[key]} target="_blank" rel="noopener noreferrer">{title.toUpperCase()}</a> : <span key={key}>{title.toUpperCase()} · URL NEEDED</span>)}{creator.whatsapp ? <a href={`https://wa.me/${creator.whatsapp}`} target="_blank" rel="noreferrer">WHATSAPP</a> : <span>WHATSAPP · ADD NUMBER</span>}</div><span>ADDIS ABABA · ETHIOPIA</span></div></footer>
+    <footer className="footer">
+      <div className="footer-main">
+        <section className="footer-brand-col" aria-label={t('SHILO Production')}>
+          <a className="brand" href="#home" aria-label={t('SHILO Production home')}><span className="brand-mark">SP</span><span>{creator.brand}<small>CAPTURING MOMENTS · CREATING STORIES</small></span></a>
+          <p className="footer-description">{creator.bio}</p>
+          <p className="footer-slogan">{creator.tagline}</p>
+          <div className="footer-socials" aria-label={t('Connect with us')}>
+            {socialPlatforms.map(({ key, title, Icon }) => <a key={key} href={socialLinks[key]} target="_blank" rel="noopener noreferrer" aria-label={t(`Follow ${title} profile`)}><Icon size={19} strokeWidth={1.6}/></a>)}
+          </div>
+        </section>
+
+        <nav className="footer-column" aria-label={t('Footer navigation')}>
+          <h2>{t('Quick navigation')}</h2>
+          <ul>{[['Home', '#home'], ['About', '#about'], ['Services', '#services'], ['Portfolio', '#work'], ['TikTok Videos', '#tiktok-videos'], ['Contact', '#contact']].map(([label, href]) => <li key={href}><a href={href}>{t(label)}</a></li>)}</ul>
+        </nav>
+
+        <section className="footer-column">
+          <h2>{t('Our services')}</h2>
+          <ul className="footer-service-list">{services.map(service => { const Icon = iconMap[service.icon]; return <li key={service.num}><a href="#services"><Icon size={16} strokeWidth={1.5}/><span>{t(service.title)}</span></a></li> })}</ul>
+        </section>
+
+        <address className="footer-column footer-contact">
+          <h2>{t('Contact information')}</h2>
+          {creator.phone && <a className="footer-contact-link" href={`tel:${creator.phone}`}><Phone size={17}/><span>{creator.phone}</span></a>}
+          <a className="footer-contact-link" href={`mailto:${creator.email}`} aria-label={t('Email SHILO Production')}><Mail size={17}/><span>{creator.email}</span></a>
+          <p className="footer-contact-link"><MapPin size={17}/><span>{t(creator.location)}</span></p>
+        </address>
+
+        <section className="footer-column footer-design">
+          <h2>{t('Graphic Designer')}</h2>
+          <p className="footer-design-copy">{t('Thoughtful graphic design for brands, campaigns, and stories that deserve to stand out.')}</p>
+          <a className="footer-design-link" href="#work"><Palette size={17} strokeWidth={1.6}/><span>{t('Explore Designs')}</span><ArrowRight size={15}/></a>
+        </section>
+      </div>
+
+      <div className="footer-bottom">
+        <p>© {new Date().getFullYear()} {creator.brand}. {t('All rights reserved.')}</p>
+        <a href="#home" className="back-top" aria-label={t('BACK TO THE TOP')}>{t('BACK TO THE TOP')} <ArrowUpRight size={15}/></a>
+      </div>
+    </footer>
 
     <AnimatePresence>{selected && <motion.div className="modal-backdrop" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={() => setSelected(null)}><button className="modal-close" aria-label="Close image preview"><X/></button><button className="image-nav image-nav-prev" aria-label={t('Previous image')} onClick={event => { event.stopPropagation(); const index = projects.findIndex(project => project.title === selected.title); setSelected(projects[(index - 1 + projects.length) % projects.length]) }}><ChevronLeft/></button><motion.div className="image-modal" initial={{scale:.96,y:12}} animate={{scale:1,y:0}} exit={{scale:.96}} onClick={e=>e.stopPropagation()}><img src={photo(selected.image, 1800)} alt={`${t(selected.title)} — ${t(selected.note)}`} decoding="async"/><div><span>{selected.note}</span><h3>{selected.title}</h3></div></motion.div><button className="image-nav image-nav-next" aria-label={t('Next image')} onClick={event => { event.stopPropagation(); const index = projects.findIndex(project => project.title === selected.title); setSelected(projects[(index + 1) % projects.length]) }}><ChevronRight/></button></motion.div>}</AnimatePresence>
   </></Localized>
