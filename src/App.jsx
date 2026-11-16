@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, ArrowRight, ArrowUpRight, Camera, CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, Facebook, Mail, MapPin, Menu, Palette, Phone, Play, Scissors, Share2, Sparkles, Video, X } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUpRight, Camera, CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, Mail, MapPin, Menu, Palette, Phone, Play, Scissors, Share2, Sparkles, Video, X } from 'lucide-react'
 import { creator } from './data/config.js'
 import { socialLinks } from './config/socialLinks.js'
 import { projects, services } from './data/content.js'
@@ -10,7 +10,7 @@ import { Localized, useLanguage } from './i18n/LanguageContext.jsx'
 const photo = (id, w = 1000) => id.startsWith('/') ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=85`
 const iconMap = { camera: Camera, video: Video, sparkles: Sparkles, scissors: Scissors, calendar: CalendarDays, share: Share2 }
 const socialPlatforms = [
-  { key: 'facebook', title: 'Facebook', username: 'SHILO Production', Icon: Facebook },
+  { key: 'facebook', title: 'Facebook', username: 'SHILO Production', Icon: FacebookBrandIcon },
   { key: 'instagram', title: 'Instagram', username: '@mame1431m', Icon: InstagramBrandIcon },
   { key: 'tiktok', title: 'TikTok', username: '@shiloproduction', Icon: TikTokIcon },
   { key: 'telegram', title: 'Telegram', username: '@shilo1431MK', Icon: TelegramBrandIcon },
@@ -23,6 +23,13 @@ const publishedTikTokVideos = tiktokVideos.filter(({ url }) => {
     return link.protocol === 'https:' && (link.hostname === 'vt.tiktok.com' || (link.hostname === 'www.tiktok.com' && /\/@[^/]+\/video\/\d+/.test(link.pathname)))
   } catch { return false }
 })
+
+function FacebookBrandIcon({ size = 24, className = '', ...props }) {
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <circle cx="12" cy="12" r="12" fill="#1877F2"/>
+    <path fill="#fff" d="M13.42 21v-8.22h2.76l.41-3.2h-3.17V7.54c0-.93.26-1.56 1.59-1.56h1.69V3.12c-.29-.04-1.3-.12-2.48-.12-2.46 0-4.14 1.5-4.14 4.26v2.32H7.3v3.2h2.78V21h3.34Z"/>
+  </svg>
+}
 
 function InstagramBrandIcon({ size = 24, className = '', ...props }) {
   const gradientId = `instagram-gradient-${useId().replaceAll(':', '')}`
@@ -38,10 +45,10 @@ function TikTokIcon({ size = 24, className = '' }) {
   return <svg className={`brand-tiktok ${className}`} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true"><path className="brand-tiktok-cyan" d={mark} transform="translate(-.8 .45)"/><path className="brand-tiktok-red" d={mark} transform="translate(.8 -.35)"/><path className="brand-tiktok-core" d={mark}/></svg>
 }
 function TelegramBrandIcon({ size = 24, className = '', ...props }) {
-  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><path fill="currentColor" d="M21.8 4.2 18.6 20c-.24 1.12-.88 1.4-1.78.87l-4.92-3.63-2.38 2.29c-.26.26-.48.48-.98.48l.35-5 9.1-8.22c.4-.35-.09-.55-.62-.2L6.12 13.68l-4.85-1.52c-1.05-.33-1.07-1.05.22-1.56L20.46 3.1c.87-.32 1.63.2 1.34 1.1Z"/></svg>
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><circle cx="12" cy="12" r="12" fill="#0088CC"/><path fill="#fff" d="m19.82 6.18-2.98 12.2c-.22.86-.8 1.07-1.62.67l-4.48-3.3-2.16 2.07c-.24.24-.44.44-.89.44l.32-4.55 8.28-7.48c.36-.32-.08-.5-.56-.18l-10.24 6.45-4.41-1.38c-.95-.3-.97-.95.2-1.42l17.23-6.65c.79-.29 1.48.18 1.21 1.13Z"/></svg>
 }
 function WhatsAppBrandIcon({ size = 24, className = '', ...props }) {
-  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><path fill="currentColor" d="M12.04 2a9.86 9.86 0 0 0-8.48 14.9L2 22l5.22-1.53A9.93 9.93 0 1 0 12.04 2Zm0 18.03a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.1.91.92-3.02-.2-.31a8.14 8.14 0 1 1 6.81 3.73Zm4.47-6.1c-.25-.13-1.48-.73-1.71-.81-.23-.09-.4-.13-.56.13-.17.25-.65.81-.8.97-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.14-.25-.01-.39.11-.52.11-.1.25-.27.37-.41.13-.15.17-.25.25-.42.09-.16.05-.31-.02-.44-.06-.12-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.23.9 2.42 1.02 2.59.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.14.16 1.57.1.48-.07 1.48-.61 1.69-1.2.21-.6.21-1.11.15-1.21-.06-.1-.23-.16-.48-.29Z"/></svg>
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><circle cx="12" cy="12" r="12" fill="#25D366"/><path fill="#fff" d="M20.01 15.38c-1.12 0-2.22-.18-3.26-.54a1 1 0 0 0-1.02.24l-1.45 1.45a15.1 15.1 0 0 1-6.6-6.6l1.45-1.45a1 1 0 0 0 .24-1.02 10.4 10.4 0 0 1-.54-3.26 1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.87a1 1 0 0 0-1-1Z" transform="translate(2 2) scale(.8)"/></svg>
 }
 
 function Header() {
