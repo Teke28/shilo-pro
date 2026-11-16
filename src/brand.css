@@ -29,7 +29,7 @@
 .social-card .button:disabled{opacity:.65;cursor:not-allowed;transform:none}
 .social-card small{color:#8c8980;font-size:var(--type-small);margin-top:9px}
 
-@media(max-width:650px){.social-follow{padding-top:34px;margin-top:30px}.social-cards{grid-template-columns:1fr;gap:8px}.social-card{min-height:0}.social-card p{min-height:0}.tiktok-profile-card{flex-direction:column;text-align:center;padding:25px 18px;gap:22px}.tiktok-avatar-link{flex-basis:126px;width:126px;height:126px}.tiktok-profile-copy h3{font-size:var(--type-subhead)}.tiktok-profile-copy>p{font-size:var(--type-nav);margin:13px auto 19px}.tiktok-actions{justify-content:center}.brand small{letter-spacing:.08em;font-size:10px}}
+@media(max-width:650px){.social-follow{padding-top:34px;margin-top:30px}.social-card{min-height:0}.social-card p{min-height:0}.tiktok-profile-card{flex-direction:column;text-align:center;padding:25px 18px;gap:22px}.tiktok-avatar-link{flex-basis:126px;width:126px;height:126px}.tiktok-profile-copy h3{font-size:var(--type-subhead)}.tiktok-profile-copy>p{font-size:var(--type-nav);margin:13px auto 19px}.tiktok-actions{justify-content:center}.brand small{letter-spacing:.08em;font-size:10px}}
 
 /* Responsive polish and motion preferences */
 html,body,#root{max-width:100%;overflow-x:clip}
@@ -392,8 +392,12 @@ main:focus{outline:0}
   .tiktok-profile-card{padding:22px 16px;gap:18px}
   .tiktok-actions{width:100%;flex-direction:column;align-items:stretch}
   .tiktok-actions .button{width:100%}
-  .social-cards{grid-template-columns:1fr;gap:10px}
-  .social-card{min-height:0;padding:19px}
+  .social-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .social-card{min-width:0;min-height:0;padding:clamp(12px,4vw,19px)}
+  .social-card .eyebrow{font-size:10px;letter-spacing:.12em;line-height:1.5}
+  .social-card h3,.social-card p{max-width:100%;overflow-wrap:anywhere}
+  .social-card .button{width:100%;min-width:0;height:auto;min-height:42px;padding:7px 9px;gap:6px;justify-content:space-between;line-height:1.35;white-space:normal;text-align:left}
+  .social-card .button svg{flex:0 0 15px}
   .social-icon-link{margin-bottom:12px}
   .process-step{grid-template-columns:34px minmax(0,1fr) 20px;gap:8px 11px;padding:16px 0}
   .process-step p{grid-column:2;grid-row:2;font-size:var(--type-nav)}
@@ -420,35 +424,30 @@ main:focus{outline:0}
 }
 
 /* Platform brand colors for every configured social icon */
-.social-brand-icon--facebook{color:#1877f2}
-.social-brand-icon--instagram{color:#e1306c}
+.social-brand-icon--facebook,.footer-socials a[data-platform="facebook"]{color:#1877f2}
+.social-brand-icon--instagram,.footer-socials a[data-platform="instagram"]{color:#e1306c}
+.social-brand-icon--telegram,.footer-socials a[data-platform="telegram"]{color:#0088cc}
+.social-brand-icon--whatsapp,.footer-socials a[data-platform="whatsapp"]{color:#25d366}
 .brand-tiktok{overflow:visible}
 .brand-tiktok-cyan{fill:#25f4ee}
 .brand-tiktok-red{fill:#fe2c55}
 .brand-tiktok-core{fill:#fff}
 .tiktok-avatar-badge .brand-tiktok-core{fill:#171612}
-.social-icon-link .social-brand-icon--facebook{color:#1877f2}
-.social-icon-link .social-brand-icon--instagram{color:#e1306c}
 .social-icon-link[data-platform],.about-instagram[data-platform]{transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease}
 .social-icon-link[data-platform]:hover,.about-instagram[data-platform]:hover{transform:translateY(-2px) scale(1.045)}
 .social-icon-link[data-platform="facebook"]:hover,.footer-socials a[data-platform="facebook"]:hover{border-color:#1877f2;background:rgba(24,119,242,.12);box-shadow:0 0 18px rgba(24,119,242,.18)}
 .social-icon-link[data-platform="instagram"]:hover,.about-instagram[data-platform="instagram"]:hover,.footer-socials a[data-platform="instagram"]:hover{border-color:#d62976;background:rgba(214,41,118,.12);box-shadow:0 0 18px rgba(214,41,118,.2)}
 .social-icon-link[data-platform="tiktok"]:hover,.footer-socials a[data-platform="tiktok"]:hover{border-color:#25f4ee;background:rgba(37,244,238,.09);box-shadow:0 0 18px rgba(37,244,238,.16)}
-.footer-socials a[data-platform="facebook"] svg,.footer-socials a[data-platform="instagram"] svg{color:currentColor}
-.footer-socials a[data-platform="facebook"]{color:#1877f2}
-.footer-socials a[data-platform="instagram"]{color:#e1306c}
 .footer-socials a[data-platform="tiktok"]{color:#fff}
 .tiktok-video-logo .brand-tiktok-core{fill:#fff}
 .social-icon-link:focus-visible,.about-instagram:focus-visible,.footer-socials a:focus-visible{outline:2px solid #f1d49d;outline-offset:4px}
 @media(prefers-reduced-motion:reduce){.social-icon-link[data-platform],.about-instagram[data-platform]{transition:none}}
 
 /* Telegram and WhatsApp brand links */
-.social-brand-icon--telegram,.contact-social-link[data-platform="telegram"] svg{color:#0088cc}
-.social-brand-icon--whatsapp,.contact-social-link[data-platform="whatsapp"] svg{color:#25d366}
+.contact-social-link[data-platform="telegram"] svg{color:#0088cc}
+.contact-social-link[data-platform="whatsapp"] svg{color:#25d366}
 .social-icon-link[data-platform="telegram"]:hover,.footer-socials a[data-platform="telegram"]:hover,.contact-social-link[data-platform="telegram"]:hover{border-color:#0088cc;background:rgba(0,136,204,.12);box-shadow:0 0 18px rgba(0,136,204,.2)}
 .social-icon-link[data-platform="whatsapp"]:hover,.footer-socials a[data-platform="whatsapp"]:hover,.contact-social-link[data-platform="whatsapp"]:hover{border-color:#25d366;background:rgba(37,211,102,.12);box-shadow:0 0 18px rgba(37,211,102,.2)}
-.footer-socials a[data-platform="telegram"]{color:#0088cc}
-.footer-socials a[data-platform="whatsapp"]{color:#25d366}
 .contact-social-links{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 10px}
 .contact-social-link{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:8px 12px;border:1px solid #514a3c;border-radius:999px;color:var(--paper);font-size:14px;text-decoration:none;transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease}
 .contact-social-link:hover{transform:translateY(-2px)}
