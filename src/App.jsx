@@ -48,7 +48,11 @@ function TelegramBrandIcon({ size = 24, className = '', ...props }) {
   return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><circle cx="12" cy="12" r="12" fill="#0088CC"/><path fill="#fff" d="m19.82 6.18-2.98 12.2c-.22.86-.8 1.07-1.62.67l-4.48-3.3-2.16 2.07c-.24.24-.44.44-.89.44l.32-4.55 8.28-7.48c.36-.32-.08-.5-.56-.18l-10.24 6.45-4.41-1.38c-.95-.3-.97-.95.2-1.42l17.23-6.65c.79-.29 1.48.18 1.21 1.13Z"/></svg>
 }
 function WhatsAppBrandIcon({ size = 24, className = '', ...props }) {
-  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><circle cx="12" cy="12" r="12" fill="#25D366"/><path fill="#fff" d="M20.01 15.38c-1.12 0-2.22-.18-3.26-.54a1 1 0 0 0-1.02.24l-1.45 1.45a15.1 15.1 0 0 1-6.6-6.6l1.45-1.45a1 1 0 0 0 .24-1.02 10.4 10.4 0 0 1-.54-3.26 1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.87a1 1 0 0 0-1-1Z" transform="translate(2 2) scale(.8)"/></svg>
+  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <rect width="24" height="24" fill="#25D366"/>
+    <path d="M12 3.2a8.2 8.2 0 0 0-7.08 12.34L4 19.7l4.28-1.14A8.2 8.2 0 1 0 12 3.2Z" fill="none" stroke="#fff" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round"/>
+    <path fill="#fff" d="M16.64 14.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.85 1.06-.16.18-.31.2-.58.07-.27-.14-1.13-.42-2.16-1.33-.8-.71-1.33-1.6-1.49-1.87-.16-.27-.02-.42.12-.55.12-.12.27-.29.4-.44.13-.16.18-.27.27-.45.09-.18.04-.33-.02-.46-.07-.14-.61-1.47-.83-2.01-.22-.53-.44-.45-.61-.46h-.51c-.18 0-.46.07-.69.34-.24.27-.92.9-.92 2.2 0 1.29.94 2.55 1.07 2.72.13.18 1.85 2.83 4.47 3.97.62.27 1.11.43 1.5.55.62.2 1.18.17 1.63.1.49-.08 1.59-.65 1.81-1.28.22-.63.22-1.16.15-1.27-.06-.11-.24-.17-.51-.31Z"/>
+  </svg>
 }
 
 function Header() {
