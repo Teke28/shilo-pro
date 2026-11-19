@@ -1,87 +1,25 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, ArrowRight, ArrowUpRight, Camera, CalendarDays, ChevronDown, ChevronLeft, ChevronRight, Mail, MapPin, Menu, Palette, Phone, Play, Scissors, Share2, Sparkles, Video, X } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Phone, Play, X } from 'lucide-react'
 import { creator } from './data/config.js'
-import { socialLinks } from './config/socialLinks.js'
 import { projects, services } from './data/content.js'
 import { tiktokVideos } from './data/tiktokVideos.js'
 import { Localized, useLanguage } from './i18n/LanguageContext.jsx'
+import { serviceIcons } from './components/serviceIcons.js'
+import { Reveal, SectionIntro } from './components/Reveal.jsx'
+import SiteHeader from './components/SiteHeader.jsx'
+import SiteFooter from './components/SiteFooter.jsx'
+import SocialFollow from './components/SocialFollow.jsx'
+import { InstagramBrandIcon, TelegramBrandIcon, TikTokIcon, WhatsAppBrandIcon } from './components/BrandIcons.jsx'
+import { socialLinks } from './config/socialLinks.js'
+import { responsivePhoto } from './utils/responsivePhoto.js'
 
-const photo = (id, w = 1000) => id.startsWith('/') ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=85`
-const responsivePhoto = (path, nativeWidth, sizes) => {
-  if (!path.startsWith('/images/photo') || !/\/photo\d+\.jpg$/.test(path)) return {}
-  const stem = path.replace('/images/', '/images/optimized/').replace(/\.jpg$/, '')
-  const widths = [480, 800, 1200, 1600].filter(width => width <= nativeWidth)
-  return widths.length ? { srcSet: widths.map(width => `${stem}-${width}.webp ${width}w`).join(', '), sizes } : {}
-}
-const iconMap = { camera: Camera, video: Video, sparkles: Sparkles, scissors: Scissors, calendar: CalendarDays, share: Share2 }
-const socialPlatforms = [
-  { key: 'facebook', title: 'Facebook', username: 'SHILO Production', Icon: FacebookBrandIcon, actionLabel: 'Open Facebook link' },
-  { key: 'instagram', title: 'Instagram', username: '@mame1431m', Icon: InstagramBrandIcon },
-  { key: 'tiktok', title: 'TikTok', username: '@shiloproduction', Icon: TikTokIcon },
-  { key: 'telegram', title: 'Telegram', username: '@shilo1431MK', Icon: TelegramBrandIcon },
-  { key: 'whatsapp', title: 'WhatsApp', username: '+251994326761', Icon: WhatsAppBrandIcon },
-]
-const nav = [['About', '#about'], ['Services', '#services'], ['Work', '#work'], ['TikTok Videos', '#tiktok-videos']]
 const publishedTikTokVideos = tiktokVideos.filter(({ url }) => {
   try {
     const link = new URL(url)
     return link.protocol === 'https:' && (link.hostname === 'vt.tiktok.com' || (link.hostname === 'www.tiktok.com' && /\/@[^/]+\/video\/\d+/.test(link.pathname)))
   } catch { return false }
 })
-
-function FacebookBrandIcon({ size = 24, className = '', ...props }) {
-  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}>
-    <circle cx="12" cy="12" r="12" fill="#1877F2"/>
-    <path fill="#fff" d="M13.42 21v-8.22h2.76l.41-3.2h-3.17V7.54c0-.93.26-1.56 1.59-1.56h1.69V3.12c-.29-.04-1.3-.12-2.48-.12-2.46 0-4.14 1.5-4.14 4.26v2.32H7.3v3.2h2.78V21h3.34Z"/>
-  </svg>
-}
-
-function InstagramBrandIcon({ size = 24, className = '', ...props }) {
-  const gradientId = `instagram-gradient-${useId().replaceAll(':', '')}`
-  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
-    <defs><linearGradient id={gradientId} x1="3" y1="21" x2="21" y2="3" gradientUnits="userSpaceOnUse"><stop stopColor="#FEDA75"/><stop offset=".28" stopColor="#FA7E1E"/><stop offset=".52" stopColor="#D62976"/><stop offset=".76" stopColor="#962FBF"/><stop offset="1" stopColor="#4F5BD5"/></linearGradient></defs>
-    <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5" stroke={`url(#${gradientId})`} strokeWidth="1.9"/>
-    <circle cx="12" cy="12" r="4.05" stroke={`url(#${gradientId})`} strokeWidth="1.9"/>
-    <circle cx="17.65" cy="6.45" r="1.15" fill="#FEDA75"/>
-  </svg>
-}
-function TikTokIcon({ size = 24, className = '' }) {
-  const mark = 'M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.43v13.67a2.9 2.9 0 0 1-2.9 2.9 2.9 2.9 0 1 1 2.9-2.9c0-.19-.02-.38-.05-.56v-3.5a6.34 6.34 0 1 0 3.48 5.65V8.28a8.16 8.16 0 0 0 4.77 1.54V6.4c-.34 0-.68-.04-1-.11Z'
-  return <svg className={`brand-tiktok ${className}`} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true"><path className="brand-tiktok-cyan" d={mark} transform="translate(-.8 .45)"/><path className="brand-tiktok-red" d={mark} transform="translate(.8 -.35)"/><path className="brand-tiktok-core" d={mark}/></svg>
-}
-function TelegramBrandIcon({ size = 24, className = '', ...props }) {
-  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}><circle cx="12" cy="12" r="12" fill="#0088CC"/><path fill="#fff" d="m19.82 6.18-2.98 12.2c-.22.86-.8 1.07-1.62.67l-4.48-3.3-2.16 2.07c-.24.24-.44.44-.89.44l.32-4.55 8.28-7.48c.36-.32-.08-.5-.56-.18l-10.24 6.45-4.41-1.38c-.95-.3-.97-.95.2-1.42l17.23-6.65c.79-.29 1.48.18 1.21 1.13Z"/></svg>
-}
-function WhatsAppBrandIcon({ size = 24, className = '', ...props }) {
-  return <svg className={className} width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" {...props}>
-    <rect width="24" height="24" fill="#25D366"/>
-    <path d="M12 3.2a8.2 8.2 0 0 0-7.08 12.34L4 19.7l4.28-1.14A8.2 8.2 0 1 0 12 3.2Z" fill="none" stroke="#fff" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round"/>
-    <path fill="#fff" d="M16.64 14.2c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.85 1.06-.16.18-.31.2-.58.07-.27-.14-1.13-.42-2.16-1.33-.8-.71-1.33-1.6-1.49-1.87-.16-.27-.02-.42.12-.55.12-.12.27-.29.4-.44.13-.16.18-.27.27-.45.09-.18.04-.33-.02-.46-.07-.14-.61-1.47-.83-2.01-.22-.53-.44-.45-.61-.46h-.51c-.18 0-.46.07-.69.34-.24.27-.92.9-.92 2.2 0 1.29.94 2.55 1.07 2.72.13.18 1.85 2.83 4.47 3.97.62.27 1.11.43 1.5.55.62.2 1.18.17 1.63.1.49-.08 1.59-.65 1.81-1.28.22-.63.22-1.16.15-1.27-.06-.11-.24-.17-.51-.31Z"/>
-  </svg>
-}
-
-function Header() {
-  const [open, setOpen] = useState(false)
-  const [active, setActive] = useState('')
-  const { language, setLanguage, t } = useLanguage()
-  useEffect(() => {
-    const onScroll = () => { let current = ''; nav.forEach(([label, id]) => { const el = document.querySelector(id); if (el && window.scrollY >= el.offsetTop - 140) current = label }); setActive(current) }
-    onScroll(); window.addEventListener('scroll', onScroll, { passive: true }); return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-  useEffect(() => {
-    if (!open) return
-    const closeOnEscape = event => { if (event.key === 'Escape') setOpen(false) }
-    window.addEventListener('keydown', closeOnEscape)
-    return () => window.removeEventListener('keydown', closeOnEscape)
-  }, [open])
-  return <Localized><header className="header"><a className="brand" href="#home" aria-label={`${creator.brand} home`}><span className="brand-mark">SP</span><span>{creator.brand}<small>CAPTURING MOMENTS · CREATING STORIES</small></span></a><button className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</button><nav id="primary-navigation" className={open ? 'nav open' : 'nav'} aria-label={t('primary-navigation')}>{nav.map(([label, href]) => label === 'Work' ? <details className="nav-dropdown" key={label}><summary className={active === 'Work' || active === 'TikTok Videos' ? 'active' : ''}>{t('Work')} <ChevronDown size={14}/></summary><div className="nav-submenu">{[['Portfolio', '#work'], ['TikTok Videos', '#tiktok-videos']].map(([child, childHref]) => <a key={childHref} href={childHref} className={active === child || (child === 'Portfolio' && active === 'Work') ? 'active' : ''} onClick={event => { setOpen(false); const details = event.currentTarget.closest('details'); if (details) details.open = false }}>{t(child)}</a>)}</div></details> : label === 'TikTok Videos' ? null : <a key={label} className={active === label ? 'active' : ''} href={href} onClick={() => setOpen(false)}>{t(label)}</a>)}<div className="language-toggle" role="group" aria-label={t('Language')}><button type="button" className={language === 'en' ? 'selected' : ''} aria-pressed={language === 'en'} aria-label={t('Switch to English')} onClick={() => { setLanguage('en'); setOpen(false) }}><span>EN</span></button><span className="language-divider" aria-hidden="true">|</span><button type="button" className={language === 'am' ? 'selected' : ''} aria-pressed={language === 'am'} aria-label={t('Switch to Amharic')} onClick={() => { setLanguage('am'); setOpen(false) }}><span>AM</span></button></div><a className="nav-contact" href="#contact" onClick={() => setOpen(false)}>{t('Let’s talk')} <ArrowUpRight size={15}/></a></nav></header></Localized>
-}
-function Reveal({ children, className = '', delay = 0 }) { const reduceMotion = useReducedMotion(); return <motion.div className={className} initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: reduceMotion ? 0 : .65, delay: reduceMotion ? 0 : delay, ease: [.2, .7, .2, 1] }}>{children}</motion.div> }
-function SectionIntro({ kicker, title, children, side }) { return <div className="section-intro"><div><span className="eyebrow">{kicker}</span><h2>{title}</h2></div>{children && <p>{children}</p>}{side && <span className="intro-side">{side}</span>}</div> }
-function SocialFollow() {
-  return <Localized><section className="social-follow section-pad" id="social"><Reveal><SectionIntro kicker="Stay connected" title={<>CONNECT WITH <em>SHILO Production</em></>} side="SOCIAL">Follow SHILO Production across our official social media profiles.</SectionIntro></Reveal><div className="social-cards">{socialPlatforms.map(({ key, title, username, Icon, actionLabel }) => { const url = socialLinks[key]; return <Reveal key={key}><article className="social-card"><a className="social-icon-link" data-platform={key} href={url} target="_blank" rel="noopener noreferrer" aria-label={key === 'facebook' ? 'Open Facebook link' : `${key === 'whatsapp' ? 'Message' : 'Open'} SHILO Production on ${title}`}><Icon className={`social-brand-icon social-brand-icon--${key}`} size={24} strokeWidth={1.5}/></a><span className="eyebrow">SHILO PRODUCTION</span><h3>{title}</h3><p>{username}</p><a className="button button-outline" href={url} target="_blank" rel="noopener noreferrer">{actionLabel || (key === 'whatsapp' ? 'Message on WhatsApp' : key === 'telegram' ? 'Open Telegram' : `Follow on ${title}`)} <ArrowUpRight size={15}/></a></article></Reveal>})}</div></section></Localized>
-}
 
 function App() {
   const reduceMotion = useReducedMotion()
@@ -122,7 +60,8 @@ function App() {
       return
     }
     if (event.key === 'Tab' && modalRef.current) {
-      const focusable = [...modalRef.current.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])')].filter(element => element.offsetParent !== null)
+      const focusable = [...modalRef.current.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])')]
+        .filter(element => element.getAttribute('aria-hidden') !== 'true' && window.getComputedStyle(element).visibility !== 'hidden')
       const first = focusable[0]
       const last = focusable[focusable.length - 1]
       if (!first || !last) { event.preventDefault(); return }
@@ -136,7 +75,7 @@ function App() {
   const handleSubmit = e => { e.preventDefault(); const data = new FormData(e.currentTarget); const body = `${t('Name:')} ${data.get('name')}\n${t('Email:')} ${data.get('email')}\n${t('Phone:')} ${data.get('phone') || t('Not provided')}\n${t('Service:')} ${t(data.get('service'))}\n\n${data.get('details')}`; window.location.href = `mailto:${creator.email}?subject=${encodeURIComponent(t('Portfolio enquiry'))}&body=${encodeURIComponent(body)}`; setDraftRequested(true) }
   return <Localized><>
     <a className="skip-link" href="#main-content">{t('Skip to content')}</a>
-    <Header/>
+    <SiteHeader/>
     <main id="main-content">
       <section className="hero" id="home"><div className="hero-image"/><div className="hero-shade"/><div className="hero-content"><div className="hero-overline"><span className="pulse"/> SHILO PRODUCTION <span className="hero-place">BASED IN ADDIS ABABA, ETHIOPIA</span></div><h1>{language === 'am' ? t('Stories worth feeling.') : <>Stories worth<br/> <em>feeling.</em></>}</h1><p className="hero-copy">{t(creator.tagline)} {t(creator.heroDescription)}</p><div className="hero-actions"><a href="#work" className="button button-gold">{t('Explore our work')} <ArrowRight size={16}/></a><a href="#about" className="text-link">{t('About the studio')} <ArrowDown size={15}/></a></div><div className="hero-proof" aria-label={t('Portfolio overview')}><span className="hero-proof-count">{projects.length.toString().padStart(2, '0')}</span><span>{t('selected portfolio stories')}</span></div><div className="hero-bottom"><span>{t('SCROLL TO EXPLORE')} <ArrowDown size={13}/></span><span>PHOTO · FILM · DIGITAL</span></div></div><div className="hero-caption"><span>SHILO PRODUCTION</span> CAPTURING MOMENTS · CREATING STORIES</div></section>
       <div className={`ticker${tickerPaused ? ' ticker-paused' : ''}`} aria-label={t('Photography, film, and stories')}><div className="ticker-track" aria-hidden="true">{Array.from({length: 2}, (_, i) => <span key={i}>PHOTOGRAPHY <b>✳</b> FILMMAKING <b>✳</b> VISUAL STORIES <b>✳</b> GOOD PEOPLE, GOOD LIGHT <b>✳</b>&nbsp;</span>)}</div><button type="button" className="ticker-toggle" aria-pressed={tickerPaused} onClick={() => setTickerPaused(paused => !paused)}>{tickerPaused ? t('Resume motion') : t('Pause motion')}</button></div>
@@ -159,7 +98,7 @@ function App() {
         </div>
       </section>
 
-      <section className="services section-pad" id="services"><Reveal><SectionIntro kicker="What I do" title={<>A good story can<br/><em>take many forms.</em></>} side="01 — SERVICES">Whatever the brief, the approach stays the same: make it thoughtful, make it beautiful, make it matter.</SectionIntro></Reveal><div className="service-grid">{services.map((s, i) => { const Icon = iconMap[s.icon]; return <Reveal key={s.title} delay={i * .05}><article className="service-card"><span className="service-num">{s.num}</span><Icon className="service-icon" size={21} strokeWidth={1.5}/><h3>{s.title}</h3><p>{s.text}</p><a href="#contact" aria-label={`Ask about ${s.title}`}><ArrowUpRight size={17}/></a></article></Reveal> })}</div></section>
+      <section className="services section-pad" id="services"><Reveal><SectionIntro kicker="What I do" title={<>A good story can<br/><em>take many forms.</em></>} side="01 — SERVICES">Whatever the brief, the approach stays the same: make it thoughtful, make it beautiful, make it matter.</SectionIntro></Reveal><div className="service-grid">{services.map((s, i) => { const Icon = serviceIcons[s.icon]; return <Reveal key={s.title} delay={i * .05}><article className="service-card"><span className="service-num">{s.num}</span><Icon className="service-icon" size={21} strokeWidth={1.5}/><h3>{s.title}</h3><p>{s.text}</p><a href="#contact" aria-label={`Ask about ${s.title}`}><ArrowUpRight size={17}/></a></article></Reveal> })}</div></section>
 
       <section className="work section-pad" id="work"><Reveal><SectionIntro kicker="Selected work · SHILO Production" title={language === 'am' ? t('Frames from the feeling.') : <>Frames from<br/><em>the feeling.</em></>} side="02 — PORTFOLIO">A collection of people, places and little moments captured by SHILO Production.</SectionIntro></Reveal><div className="filters" role="group" aria-label={t('Filter projects')}>{filters.map(f => <button className={filter === f ? 'filter active' : 'filter'} key={f} onClick={() => setFilter(f)}>{t(f)}<span>{f === 'All' ? String(projects.length).padStart(2, '0') : String(projects.filter(p => p.category === f).length).padStart(2, '0')}</span></button>)}</div><motion.div layout className="project-grid" transition={{ duration: reduceMotion ? 0 : .35 }}>{shown.map((p, i) => <motion.button layout key={p.title} className={`project-card ${p.size}`} onClick={event => { projectTriggerRef.current = event.currentTarget; setSelected(p) }} initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduceMotion ? 0 : .35 }}><img src={p.image} {...responsivePhoto(p.image, p.width, '(max-width: 650px) 46vw, (max-width: 900px) 29vw, (max-width: 1100px) 30vw, (max-width: 1500px) 22vw, 18vw')} alt={`${t(p.title)} — ${t(p.isSample ? 'Sample — replace with SHILO work' : p.note)}`} loading="lazy" decoding="async" width={p.width} height={p.height}/><span className="project-overlay"><span className="project-meta"><span>{p.isSample ? t('Sample — replace with SHILO work') : t(p.note)}</span><ArrowUpRight size={17}/></span><span className="project-title">{t(p.title)}</span><span className="project-type">{t(p.type)}</span></span></motion.button>)}</motion.div><div className="work-foot"><span>{t('AN OPEN-ENDED COLLECTION, ALWAYS IN PROGRESS.')}</span><a href="#contact" className="under-link">{t('Have a project in mind?')} <ArrowUpRight size={16}/></a></div></section>
 
@@ -174,46 +113,7 @@ function App() {
 
       <section className="contact section-pad" id="contact"><Reveal><div className="contact-heading"><span className="eyebrow">The beginning of something</span><h2>Have a story<br/>in <em>mind?</em></h2><p>Tell me a little about it. Big plans, half-formed ideas and “what ifs” are all welcome here.</p><a className="contact-email" href={`mailto:${creator.email}`}>{creator.email} <ArrowUpRight size={18}/></a><a className="contact-phone" href={`tel:${creator.phone}`} aria-label={t('Call SHILO Production')}><Phone size={16}/><span>{creator.phone}</span></a><div className="contact-social-links" aria-label="Message SHILO Production"><a className="contact-social-link" data-platform="telegram" href={socialLinks.telegram} target="_blank" rel="noopener noreferrer" aria-label="Open SHILO Production on Telegram"><TelegramBrandIcon size={18}/><span>Telegram</span></a><a className="contact-social-link" data-platform="whatsapp" href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Message SHILO Production on WhatsApp"><WhatsAppBrandIcon size={18}/><span>WhatsApp</span></a></div><div className="contact-location"><span className="pulse"/>{creator.location}</div></div></Reveal><Reveal delay={.12}><form className="contact-form" onSubmit={handleSubmit}><div className="form-top"><span className="eyebrow">Send a note</span><span>01 — 05</span></div><label>Your name<input name="name" placeholder="What should I call you?" required/></label><label>Email address<input type="email" name="email" placeholder="you@example.com" required/></label><label>Phone number<input type="tel" name="phone" placeholder="+251 …" /></label><label>What are you dreaming up?<select name="service" defaultValue="" required><option value="" disabled>Choose a service</option><option>Photography</option><option>Film & videography</option><option>Social content</option><option>Event coverage</option><option>Something else</option></select></label><label>A few more details<textarea name="details" placeholder="The date, the feeling, the big idea…" rows="3" required/></label><button type="submit" className="button button-gold form-submit">{draftRequested ? <>{t('Opening email app…')} <ArrowRight size={16}/></> : <>{t('Open email draft')} <ArrowRight size={16}/></>}</button>{draftRequested && <p className="form-note" role="status">{t('Your email app should open with an email draft addressed to')} <a href={`mailto:${creator.email}`}>{creator.email}</a>. {t('If it does not open, email us directly at')} <a href={`mailto:${creator.email}`}>{creator.email}</a>.</p>}<p className="form-note">{t('This form opens your email app; it does not send or store your information.')}</p></form></Reveal></section>
     </main>
-    <footer className="footer">
-      <div className="footer-main">
-        <section className="footer-brand-col" aria-label={t('SHILO Production')}>
-          <a className="brand" href="#home" aria-label={t('SHILO Production home')}><span className="brand-mark">SP</span><span>{creator.brand}<small>CAPTURING MOMENTS · CREATING STORIES</small></span></a>
-          <p className="footer-description">{creator.bio}</p>
-          <p className="footer-slogan">{creator.tagline}</p>
-          <div className="footer-socials" aria-label={t('Connect with us')}>
-            {socialPlatforms.map(({ key, title, Icon }) => <a key={key} data-platform={key} href={socialLinks[key]} target="_blank" rel="noopener noreferrer" aria-label={t(key === 'facebook' ? 'Open Facebook link' : `Follow ${title} profile`)}><Icon className={`social-brand-icon social-brand-icon--${key}`} size={19} strokeWidth={1.6}/></a>)}
-          </div>
-        </section>
-
-        <nav className="footer-column" aria-label={t('Footer navigation')}>
-          <h2>{t('Quick navigation')}</h2>
-          <ul>{[['Home', '#home'], ['About', '#about'], ['Services', '#services'], ['Portfolio', '#work'], ['TikTok Videos', '#tiktok-videos'], ['Contact', '#contact']].map(([label, href]) => <li key={href}><a href={href}>{t(label)}</a></li>)}</ul>
-        </nav>
-
-        <section className="footer-column">
-          <h2>{t('Our services')}</h2>
-          <ul className="footer-service-list">{services.map(service => { const Icon = iconMap[service.icon]; return <li key={service.num}><a href="#services"><Icon size={16} strokeWidth={1.5}/><span>{t(service.title)}</span></a></li> })}</ul>
-        </section>
-
-        <address className="footer-column footer-contact">
-          <h2>{t('Contact information')}</h2>
-          {creator.phone && <a className="footer-contact-link" href={`tel:${creator.phone}`}><Phone size={17}/><span>{creator.phone}</span></a>}
-          <a className="footer-contact-link" href={`mailto:${creator.email}`} aria-label={t('Email SHILO Production')}><Mail size={17}/><span>{creator.email}</span></a>
-          <p className="footer-contact-link"><MapPin size={17}/><span>{t(creator.location)}</span></p>
-        </address>
-
-        <section className="footer-column footer-design">
-          <h2>{t('Graphic Designer')}</h2>
-          <p className="footer-design-copy">{t('Thoughtful graphic design for brands, campaigns, and stories that deserve to stand out.')}</p>
-          <a className="footer-design-link" href="#contact"><Palette size={17} strokeWidth={1.6}/><span>{t('Discuss a Design Project')}</span><ArrowRight size={15}/></a>
-        </section>
-      </div>
-
-      <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} {creator.brand}. {t('All rights reserved.')}</p>
-        <a href="#home" className="back-top" aria-label={t('BACK TO THE TOP')}>{t('BACK TO THE TOP')} <ArrowUpRight size={15}/></a>
-      </div>
-    </footer>
+    <SiteFooter/>
 
     <AnimatePresence>{selected && <motion.div ref={modalRef} className="modal-backdrop" role="dialog" aria-modal="true" tabIndex={-1} aria-label={`${t(selected.title)} ${t('image preview')}`} onKeyDown={handleModalKeyDown} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={() => setSelected(null)}><button ref={modalCloseRef} className="modal-close" aria-label={t('Close image preview')} onClick={() => setSelected(null)}><X/></button><button className="image-nav image-nav-prev" aria-label={t('Previous image')} onClick={event => { event.stopPropagation(); const index = projects.findIndex(project => project.title === selected.title); setSelected(projects[(index - 1 + projects.length) % projects.length]) }}><ChevronLeft/></button><motion.div className="image-modal" initial={{scale:.96,y:12}} animate={{scale:1,y:0}} exit={{scale:.96}} onClick={e=>e.stopPropagation()}><img src={selected.image} {...responsivePhoto(selected.image, selected.width, '(max-width: 650px) 90vw, min(78vw, 1000px)')} alt={`${t(selected.title)} — ${t(selected.isSample ? 'Sample — replace with SHILO work' : selected.note)}`} decoding="async" width={selected.width} height={selected.height}/><div><span>{selected.isSample ? t('Sample — replace with SHILO work') : t(selected.note)}</span><h3>{t(selected.title)}</h3></div></motion.div><button className="image-nav image-nav-next" aria-label={t('Next image')} onClick={event => { event.stopPropagation(); const index = projects.findIndex(project => project.title === selected.title); setSelected(projects[(index + 1) % projects.length]) }}><ChevronRight/></button></motion.div>}</AnimatePresence>
   </></Localized>

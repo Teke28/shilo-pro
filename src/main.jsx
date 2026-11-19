@@ -1,9 +1,20 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import { LanguageProvider } from './i18n/LanguageContext.jsx'
 import './index.css'
 import './brand.css'
 
-createRoot(document.getElementById('root')).render(<React.StrictMode><BrowserRouter><LanguageProvider><App /></LanguageProvider></BrowserRouter></React.StrictMode>)
+const rootElement = document.getElementById('root')
+
+if (!rootElement) {
+  throw new Error('The application root element (#root) is missing.')
+}
+
+createRoot(rootElement).render(
+  <React.StrictMode>
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
+  </React.StrictMode>,
+)
