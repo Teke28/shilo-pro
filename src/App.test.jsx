@@ -103,6 +103,11 @@ describe('SHILO Production homepage', () => {
   it('switches to Amharic and persists the selected language', async () => {
     const user = userEvent.setup();
     renderApp();
+    expect(screen.getByLabelText('Your name')).toBeTruthy();
+    expect(screen.getByLabelText('Email address')).toBeTruthy();
+    expect(screen.getByLabelText('Phone number')).toBeTruthy();
+    expect(screen.getByLabelText('What are you dreaming up?')).toBeTruthy();
+    expect(screen.getByLabelText('A few more details')).toBeTruthy();
     expect(
       screen.getByRole('link', {
         name: 'Message on WhatsApp',
@@ -156,6 +161,25 @@ describe('SHILO Production homepage', () => {
         name: 'ለSHILO Production መልዕክት ይላኩ',
       }),
     ).toBeTruthy();
+    expect(screen.getByLabelText('ስምዎ')).toBeTruthy();
+    expect(screen.getByLabelText('የኢሜይል አድራሻ')).toBeTruthy();
+    expect(screen.getByLabelText('ስልክ ቁጥር')).toBeTruthy();
+    expect(screen.getByLabelText('ምን ዓይነት ፕሮጀክት አስበዋል?')).toBeTruthy();
+    expect(screen.getByLabelText('ተጨማሪ ዝርዝሮች')).toBeTruthy();
+  });
+
+  it('provides semantic page landmarks and alternative text for content images', () => {
+    renderApp();
+
+    expect(screen.getByRole('banner')).toBeTruthy();
+    expect(screen.getByRole('main')).toBeTruthy();
+    expect(screen.getByRole('contentinfo')).toBeTruthy();
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+
+    document.querySelectorAll('img').forEach((image) => {
+      expect(image.hasAttribute('alt')).toBe(true);
+      expect(image.alt.trim()).not.toBe('');
+    });
   });
 
   it('renders four verified Vlog links that open the original TikTok posts safely', () => {
