@@ -1,14 +1,14 @@
-import { cleanup } from '@testing-library/react'
-import { afterEach } from 'vitest'
+import { cleanup } from '@testing-library/react';
+import { afterEach } from 'vitest';
 
 afterEach(() => {
-  cleanup()
-  localStorage.clear()
-  document.documentElement.lang = 'en'
-})
+  cleanup();
+  localStorage.clear();
+  document.documentElement.lang = 'en';
+});
 
 if (!window.matchMedia) {
-  window.matchMedia = query => ({
+  window.matchMedia = (query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -16,8 +16,10 @@ if (!window.matchMedia) {
     removeListener() {},
     addEventListener() {},
     removeEventListener() {},
-    dispatchEvent() { return false },
-  })
+    dispatchEvent() {
+      return false;
+    },
+  });
 }
 
 if (!globalThis.IntersectionObserver) {
@@ -26,6 +28,8 @@ if (!globalThis.IntersectionObserver) {
     observe() {}
     unobserve() {}
     disconnect() {}
-    takeRecords() { return [] }
-  }
+    takeRecords() {
+      return [];
+    }
+  };
 }
