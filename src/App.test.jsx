@@ -8,6 +8,7 @@ import { LanguageProvider } from './i18n/LanguageContext.jsx'
 import { socialLinks } from './config/socialLinks.js'
 import { creator } from './data/config.js'
 import { projects } from './data/content.js'
+import { vlogs } from './data/vlogs.js'
 import { responsivePhoto } from './utils/responsivePhoto.js'
 
 function renderApp() {
@@ -56,8 +57,28 @@ describe('SHILO Production homepage', () => {
     await user.click(screen.getByRole('button', { name: 'Switch to Amharic' }))
 
     expect(await screen.findByRole('heading', { name: 'ስለ ስቱዲዮው በጥቂቱ' })).toBeTruthy()
+    const amharicVlogTitle = document.querySelector('#tiktok-videos h2').textContent
+    expect(amharicVlogTitle).toContain('ታሪኮች')
+    expect(amharicVlogTitle).toContain('በእንቅስቃሴ')
     expect(document.documentElement.lang).toBe('am')
     expect(localStorage.getItem('shilo-production-language')).toBe('am')
+  })
+
+  it('renders four verified Vlog links that open the original TikTok posts safely', () => {
+    renderApp()
+
+    const vlogTitle = document.querySelector('#tiktok-videos h2').textContent.replace(/\s+/g, '')
+    expect(vlogTitle).toBe('StoriesinMotion')
+    const cards = [...document.querySelectorAll('.vlog-card')]
+    expect(cards).toHaveLength(4)
+
+    cards.forEach((card, index) => {
+      expect(card.getAttribute('href')).toBe(vlogs[index].videoUrl)
+      expect(card.target).toBe('_blank')
+      expect(card.rel).toContain('noopener')
+      expect(card.rel).toContain('noreferrer')
+      expect(within(card).getByText('Watch on TikTok')).toBeTruthy()
+    })
   })
 
   it('filters portfolio projects by category', async () => {
