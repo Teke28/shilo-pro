@@ -1,10 +1,12 @@
 import { ArrowUpRight } from 'lucide-react';
 import { socialLinks } from '../config/socialLinks.js';
 import { socialPlatforms } from '../data/socialPlatforms.js';
-import { Localized } from '../i18n/LanguageContext.jsx';
+import { Localized, useLanguage } from '../i18n/LanguageContext.jsx';
 import { Reveal, SectionIntro } from './Reveal.jsx';
 
 export default function SocialFollow() {
+  const { t } = useLanguage();
+
   return (
     <Localized>
       <section className="social-follow section-pad" id="social">
@@ -46,7 +48,7 @@ export default function SocialFollow() {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={accessibleName}
+                      aria-label={t(accessibleName)}
                     >
                       <Icon
                         className={`social-brand-icon social-brand-icon--${key}`}
@@ -63,7 +65,7 @@ export default function SocialFollow() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {action} <ArrowUpRight size={15} />
+                      {t(action)} <ArrowUpRight size={15} />
                     </a>
                   </article>
                 </Reveal>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ChevronDown, Menu, X } from 'lucide-react';
 import { creator } from '../data/config.js';
 import { Localized, useLanguage } from '../i18n/LanguageContext.jsx';
@@ -17,6 +17,7 @@ const workLinks = [
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('');
+  const menuToggleRef = useRef(null);
   const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
@@ -40,13 +41,19 @@ export default function SiteHeader() {
   useEffect(() => {
     if (!open) return undefined;
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') {
+        setOpen(false);
+        menuToggleRef.current?.focus();
+      }
     };
     window.addEventListener('keydown', closeOnEscape);
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, [open]);
 
-  const closeMenu = () => setOpen(false);
+  const closeMenu = (restoreFocus = false) => {
+    setOpen(false);
+    if (restoreFocus && open) menuToggleRef.current?.focus();
+  };
 
   return (
     <Localized>
@@ -59,6 +66,7 @@ export default function SiteHeader() {
           </span>
         </a>
         <button
+          ref={menuToggleRef}
           className="menu-toggle"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
@@ -96,7 +104,7 @@ export default function SiteHeader() {
                           : ''
                       }
                       onClick={(event) => {
-                        closeMenu();
+                        closeMenu(true);
                         const details = event.currentTarget.closest('details');
                         if (details) details.open = false;
                       }}
@@ -111,7 +119,7 @@ export default function SiteHeader() {
                 key={label}
                 className={active === label ? 'active' : ''}
                 href={href}
-                onClick={closeMenu}
+                onClick={() => closeMenu(true)}
               >
                 {t(label)}
               </a>
@@ -129,7 +137,7 @@ export default function SiteHeader() {
               aria-label={t('Switch to English')}
               onClick={() => {
                 setLanguage('en');
-                closeMenu();
+                closeMenu(true);
               }}
             >
               <span>EN</span>
@@ -144,13 +152,17 @@ export default function SiteHeader() {
               aria-label={t('Switch to Amharic')}
               onClick={() => {
                 setLanguage('am');
-                closeMenu();
+                closeMenu(true);
               }}
             >
               <span>AM</span>
             </button>
           </div>
-          <a className="nav-contact" href="#contact" onClick={closeMenu}>
+          <a
+            className="nav-contact"
+            href="#contact"
+            onClick={() => closeMenu(true)}
+          >
             {t('Let’s talk')} <ArrowUpRight size={15} />
           </a>
         </nav>

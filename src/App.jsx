@@ -396,6 +396,7 @@ function App() {
                 <button
                   className={filter === f ? 'filter active' : 'filter'}
                   key={f}
+                  aria-pressed={filter === f}
                   onClick={() => setFilter(f)}
                 >
                   {t(f)}
@@ -724,7 +725,8 @@ function App() {
                 </a>
                 <div
                   className="contact-social-links"
-                  aria-label="Message SHILO Production"
+                  role="group"
+                  aria-label={t('Message SHILO Production')}
                 >
                   <a
                     className="contact-social-link"

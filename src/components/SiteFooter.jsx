@@ -57,7 +57,11 @@ export default function SiteFooter() {
                   aria-label={t(
                     key === 'facebook'
                       ? 'Open Facebook link'
-                      : `Follow ${title} profile`,
+                      : key === 'telegram'
+                        ? 'Open SHILO Production on Telegram'
+                        : key === 'whatsapp'
+                          ? 'Message SHILO Production on WhatsApp'
+                          : `Follow ${title} profile`,
                   )}
                 >
                   <Icon

@@ -49,6 +49,23 @@ describe('SHILO Production homepage', () => {
     ).toBe('false');
   });
 
+  it('closes mobile navigation with Escape and restores focus to its toggle', async () => {
+    const user = userEvent.setup();
+    renderApp();
+    const menu = screen.getByRole('button', {
+      name: 'Open menu',
+    });
+
+    await user.click(menu);
+    await user.tab();
+    expect(document.activeElement).not.toBe(menu);
+
+    await user.keyboard('{Escape}');
+
+    expect(menu.getAttribute('aria-expanded')).toBe('false');
+    expect(document.activeElement).toBe(menu);
+  });
+
   it('points every responsive photograph candidate to an existing variant and keeps original JPEG fallbacks', () => {
     const responsiveImages = [
       ...projects.map((project) => ({
@@ -86,6 +103,21 @@ describe('SHILO Production homepage', () => {
   it('switches to Amharic and persists the selected language', async () => {
     const user = userEvent.setup();
     renderApp();
+    expect(
+      screen.getByRole('link', {
+        name: 'Message on WhatsApp',
+      }),
+    ).toBeTruthy();
+    expect(
+      screen.getByRole('link', {
+        name: 'Open Telegram',
+      }),
+    ).toBeTruthy();
+    expect(
+      screen.getByRole('group', {
+        name: 'Message SHILO Production',
+      }),
+    ).toBeTruthy();
 
     await user.click(
       screen.getByRole('button', {
@@ -104,6 +136,26 @@ describe('SHILO Production homepage', () => {
     expect(amharicVlogTitle).toContain('በእንቅስቃሴ');
     expect(document.documentElement.lang).toBe('am');
     expect(localStorage.getItem('shilo-production-language')).toBe('am');
+    expect(
+      screen.getByRole('link', {
+        name: 'በWhatsApp መልዕክት ይላኩ',
+      }),
+    ).toBeTruthy();
+    expect(
+      screen.getAllByRole('link', {
+        name: 'በTelegram የSHILO Production መገለጫን ይክፈቱ',
+      }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getAllByRole('link', {
+        name: 'ለSHILO Production በWhatsApp መልዕክት ይላኩ',
+      }).length,
+    ).toBeGreaterThan(0);
+    expect(
+      screen.getByRole('group', {
+        name: 'ለSHILO Production መልዕክት ይላኩ',
+      }),
+    ).toBeTruthy();
   });
 
   it('renders four verified Vlog links that open the original TikTok posts safely', () => {
@@ -129,6 +181,21 @@ describe('SHILO Production homepage', () => {
     const user = userEvent.setup();
     renderApp();
 
+    expect(
+      screen
+        .getByRole('button', {
+          name: /^All/,
+        })
+        .getAttribute('aria-pressed'),
+    ).toBe('true');
+    expect(
+      screen
+        .getByRole('button', {
+          name: /^Events/,
+        })
+        .getAttribute('aria-pressed'),
+    ).toBe('false');
+
     await user.click(
       screen.getByRole('button', {
         name: /^Events/,
@@ -150,6 +217,20 @@ describe('SHILO Production homepage', () => {
         name: /Into the Golden Hour/,
       }),
     ).toBeNull();
+    expect(
+      screen
+        .getByRole('button', {
+          name: /^Events/,
+        })
+        .getAttribute('aria-pressed'),
+    ).toBe('true');
+    expect(
+      screen
+        .getByRole('button', {
+          name: /^All/,
+        })
+        .getAttribute('aria-pressed'),
+    ).toBe('false');
   });
 
   it('counts only non-sample work in the homepage portfolio summary', () => {

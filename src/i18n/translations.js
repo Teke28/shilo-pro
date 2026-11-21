@@ -210,6 +210,13 @@ export const translations = {
     'Open SHILO Production on Instagram':
       'የSHILO Productionን Instagram ገጽ ይክፈቱ',
     'Open SHILO Production on TikTok': 'የSHILO Productionን TikTok ገጽ ይክፈቱ',
+    'Open SHILO Production on Telegram':
+      'በTelegram የSHILO Production መገለጫን ይክፈቱ',
+    'Message SHILO Production': 'ለSHILO Production መልዕክት ይላኩ',
+    'Message SHILO Production on WhatsApp':
+      'ለSHILO Production በWhatsApp መልዕክት ይላኩ',
+    'Message on WhatsApp': 'በWhatsApp መልዕክት ይላኩ',
+    'Open Telegram': 'Telegramን ይክፈቱ',
     'Follow on Facebook': 'በFacebook ይከተሉ',
     'Follow on Instagram': 'በInstagram ይከተሉ',
     Facebook: 'Facebook',
