@@ -41,6 +41,9 @@ const publishedVlogs = vlogs.filter(({ videoUrl }) => {
     return false;
   }
 });
+const portfolioWorkCount = projects.filter(
+  (project) => !project.isSample,
+).length;
 
 function App() {
   const reduceMotion = useReducedMotion();
@@ -183,7 +186,7 @@ function App() {
               </div>
               <div className="hero-proof" aria-label={t('Portfolio overview')}>
                 <span className="hero-proof-count">
-                  {projects.length.toString().padStart(2, '0')}
+                  {portfolioWorkCount.toString().padStart(2, '0')}
                 </span>
                 <span>{t('selected portfolio stories')}</span>
               </div>

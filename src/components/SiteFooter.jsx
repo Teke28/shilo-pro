@@ -129,7 +129,7 @@ export default function SiteFooter() {
             </p>
             <a className="footer-design-link" href="#contact">
               <Palette size={17} strokeWidth={1.6} />
-              <span>{t('Discuss a Design Project')}</span>
+              <span>{t('Contact us to discuss graphic design')}</span>
               <ArrowRight size={15} />
             </a>
           </section>

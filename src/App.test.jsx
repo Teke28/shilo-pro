@@ -152,6 +152,12 @@ describe('SHILO Production homepage', () => {
     ).toBeNull();
   });
 
+  it('counts only non-sample work in the homepage portfolio summary', () => {
+    renderApp();
+
+    expect(document.querySelector('.hero-proof-count').textContent).toBe('10');
+  });
+
   it('opens the portfolio lightbox, closes with Escape, and restores focus', async () => {
     const user = userEvent.setup();
     renderApp();

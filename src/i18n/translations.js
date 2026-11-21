@@ -56,7 +56,7 @@ export const translations = {
     'Graphic Designer': 'ግራፊክ ዲዛይነር',
     'Thoughtful graphic design for brands, campaigns, and stories that deserve to stand out.':
       'ለብራንዶች፣ ዘመቻዎች እና ልዩ ሆነው መታየት ለሚገባቸው ታሪኮች በጥንቃቄ የተዘጋጀ ግራፊክ ዲዛይን።',
-    'Discuss a Design Project': 'ስለ ዲዛይን ፕሮጀክት ይወያዩ',
+    'Contact us to discuss graphic design': 'ስለ ግራፊክ ዲዛይን ለመወያየት ያግኙን',
     'Sample — replace with SHILO work': 'ናሙና — በSHILO ሥራ ይተኩ',
     'Open Facebook link': 'የFacebook አገናኙን ይክፈቱ',
     'Opening email app…': 'የኢሜይል መተግበሪያውን በመክፈት ላይ…',
